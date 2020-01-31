@@ -31,16 +31,45 @@ public interface EntryDetail {
    */
   String getReceiverAccountNumber();
 
-  
+  /**
+   * Gets the dollar amount of the transaction.
+   *
+   * @return The dollar amount of the transaction.
+   */
   double getTransactionAmount();
 
+  /**
+   * Gets the receiver identification number.
+   *
+   * @return The receiver identification number.
+   */
   Optional<String> getReceiverIdNumber();
 
+  /**
+   * Gets the name of the receiver.
+   *
+   * @return The name of the receiver.
+   */
   String getReceiverName();
 
+  /**
+   * Gets the discretionary data.
+   *
+   * @return The discretionary data.
+   */
   Optional<String> getDiscretionaryDate();
 
+  /**
+   * Checks if the entry has an addenda.
+   *
+   * @return True if the entry has an addenda.
+   */
   boolean hasAddenda();
 
+  /**
+   * Gets the trace number.
+   *
+   * @return The trace number.
+   */
   long getTraceNumber();
 }
