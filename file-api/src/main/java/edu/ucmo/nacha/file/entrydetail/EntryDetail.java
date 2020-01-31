@@ -57,7 +57,7 @@ public interface EntryDetail {
    *
    * @return The discretionary data.
    */
-  Optional<String> getDiscretionaryDate();
+  Optional<String> getDiscretionaryData();
 
   /**
    * Checks if the entry has an addenda.
