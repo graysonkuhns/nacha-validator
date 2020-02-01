@@ -15,8 +15,12 @@ public class EntryDetailModule extends AbstractModule {
    */
   @Override
   protected void configure() {
+    // Factory
     install(new FactoryModuleBuilder()
         .implement(EntryDetail.class, DefaultEntryDetail.class)
         .build(EntryDetailFactory.class));
+
+    // Parser
+    bind(EntryDetailParser.class).to(DefaultEntryDetailParser.class);
   }
 }

@@ -1,5 +1,9 @@
 package edu.ucmo.nacha.file.entrydetail;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
 import java.util.Optional;
@@ -148,5 +152,22 @@ public class DefaultEntryDetail implements EntryDetail {
   @Override
   public long getTraceNumber() {
     return traceNumber;
+  }
+
+  /**
+   * Gets the {@link String} representation.
+   *
+   * @return The {@link String} representation.
+   */
+  @Override
+  public String toString() {
+    try {
+      return new ObjectMapper()
+          .enable(SerializationFeature.INDENT_OUTPUT)
+          .registerModule(new Jdk8Module())
+          .writeValueAsString(this);
+    } catch (JsonProcessingException ex) {
+      throw new RuntimeException(ex);
+    }
   }
 }
