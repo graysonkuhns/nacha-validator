@@ -76,4 +76,18 @@ public interface RecordFieldParser {
    * @return The boolean field.
    */
   boolean getBoolean(String record, int start, int end);
+
+  /**
+   * Gets a dollar amount field in a record.
+   *
+   * <note>
+   *   1 is the first position in a record.
+   * </note>
+   *
+   * @param record The full record.
+   * @param start The start position of the field, inclusive.
+   * @param end The end position of the field, inclusive.
+   * @return The dollar amount field.
+   */
+  double getDollarAmount(String record, int start, int end);
 }

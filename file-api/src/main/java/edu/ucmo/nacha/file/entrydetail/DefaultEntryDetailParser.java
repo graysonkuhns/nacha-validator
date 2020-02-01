@@ -46,7 +46,7 @@ public class DefaultEntryDetailParser implements EntryDetailParser {
 
     final long receiverRoutingNumber = fieldParser.getLong(record, 4, 11);
     final String receiverAccountNumber = fieldParser.getString(record, 13, 29);
-    final double transactionAmount = fieldParser.getDouble(record, 30, 39);
+    final double transactionAmount = fieldParser.getDollarAmount(record, 30, 39);
     final String receiverIdNumber = fieldParser.getString(record, 40, 54);
     final String receiverName = fieldParser.getString(record, 55, 76);
     final String discretionaryData = null;

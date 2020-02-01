@@ -131,4 +131,45 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
         throw new RuntimeException();
     }
   }
+
+  /**
+   * Gets a dollar amount field in a record.
+   *
+   * <note>
+   * 1 is the first position in a record.
+   * </note>
+   *
+   * @param record The full record.
+   * @param start The start position of the field, inclusive.
+   * @param end The end position of the field, inclusive.
+   * @return The dollar amount field.
+   */
+  @Override
+  public double getDollarAmount(final String record, final int start, final int end) {
+    // Get the field data
+    final String field = getString(record, start, end);
+
+    if (field.length() < 2) {
+      throw new RuntimeException("Less than 2 length");
+    }
+
+    String dollarString;
+    String centsString;
+
+    if (field.length() == 2) {
+      dollarString = "0";
+      centsString = field;
+    } else {
+      int centStart = field.length() - 2;
+      dollarString = field.substring(0, centStart);
+      centsString = field.substring(centStart);
+    }
+
+    centsString = "0.".concat(centsString);
+
+    double total = Double.parseDouble(dollarString);
+    total += Double.parseDouble(centsString);
+
+    return total;
+  }
 }
