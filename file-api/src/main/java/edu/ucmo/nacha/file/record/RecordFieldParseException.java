@@ -1,10 +1,18 @@
 package edu.ucmo.nacha.file.record;
 
-public class RecordFieldParseException extends RuntimeException {
+import edu.ucmo.nacha.file.MalformedNachaFileException;
+
+/**
+ * Record field parse exception.
+ *
+ * @author Grayson Kuhns
+ */
+public class RecordFieldParseException extends MalformedNachaFileException {
 
   // Properties
   private final String record;
   private final String fieldName;
+  private final RecordFieldType fieldType;
   private final int fieldStartPosition;
   private final int fieldEndPosition;
 
@@ -17,6 +25,7 @@ public class RecordFieldParseException extends RuntimeException {
     super(cause);
     record = null;
     fieldName = null;
+    fieldType = null;
     fieldStartPosition = 0;
     fieldEndPosition = 0;
   }
@@ -26,17 +35,20 @@ public class RecordFieldParseException extends RuntimeException {
    *
    * @param record The record containing the field.
    * @param fieldName The field name.
+   * @param fieldType The {@link RecordFieldType}.
    * @param fieldStartPosition The field start position.
    * @param fieldEndPosition The field end position.
    */
   public RecordFieldParseException(
       final String record,
       final String fieldName,
+      final RecordFieldType fieldType,
       final int fieldStartPosition,
       final int fieldEndPosition) {
 
     this.record = record;
     this.fieldName = fieldName;
+    this.fieldType = fieldType;
     this.fieldStartPosition = fieldStartPosition;
     this.fieldEndPosition = fieldEndPosition;
   }
@@ -46,6 +58,7 @@ public class RecordFieldParseException extends RuntimeException {
    *
    * @param record The record containing the field.
    * @param fieldName The field name.
+   * @param fieldType The {@link RecordFieldType}.
    * @param fieldStartPosition The field start position.
    * @param fieldEndPosition The field end position.
    * @param message The failure message.
@@ -53,6 +66,7 @@ public class RecordFieldParseException extends RuntimeException {
   public RecordFieldParseException(
       final String record,
       final String fieldName,
+      final RecordFieldType fieldType,
       final int fieldStartPosition,
       final int fieldEndPosition,
       final String message) {
@@ -60,6 +74,7 @@ public class RecordFieldParseException extends RuntimeException {
     super(message);
     this.record = record;
     this.fieldName = fieldName;
+    this.fieldType = fieldType;
     this.fieldStartPosition = fieldStartPosition;
     this.fieldEndPosition = fieldEndPosition;
   }
@@ -69,6 +84,7 @@ public class RecordFieldParseException extends RuntimeException {
    *
    * @param record The record containing the field.
    * @param fieldName The field name.
+   * @param fieldType The {@link RecordFieldType}.
    * @param fieldStartPosition The field start position.
    * @param fieldEndPosition The field end position.
    * @param cause The failure cause.
@@ -76,6 +92,7 @@ public class RecordFieldParseException extends RuntimeException {
   public RecordFieldParseException(
       final String record,
       final String fieldName,
+      final RecordFieldType fieldType,
       final int fieldStartPosition,
       final int fieldEndPosition,
       final Throwable cause) {
@@ -83,6 +100,7 @@ public class RecordFieldParseException extends RuntimeException {
     super(cause);
     this.record = record;
     this.fieldName = fieldName;
+    this.fieldType = fieldType;
     this.fieldStartPosition = fieldStartPosition;
     this.fieldEndPosition = fieldEndPosition;
   }
@@ -92,12 +110,14 @@ public class RecordFieldParseException extends RuntimeException {
    *
    * @param record The record containing the field.
    * @param fieldName The field name.
+   * @param fieldType The {@link RecordFieldType}.
    * @param fieldStartPosition The field start position.
    * @param fieldEndPosition The field end position.
    */
   public RecordFieldParseException(
       final String record,
       final String fieldName,
+      final RecordFieldType fieldType,
       final int fieldStartPosition,
       final int fieldEndPosition,
       final String message,
@@ -106,6 +126,7 @@ public class RecordFieldParseException extends RuntimeException {
     super(message, cause);
     this.record = record;
     this.fieldName = fieldName;
+    this.fieldType = fieldType;
     this.fieldStartPosition = fieldStartPosition;
     this.fieldEndPosition = fieldEndPosition;
   }
@@ -126,6 +147,15 @@ public class RecordFieldParseException extends RuntimeException {
    */
   public String getFieldName() {
     return fieldName;
+  }
+
+  /**
+   * Gets the {@link RecordFieldType}.
+   *
+   * @return The {@link RecordFieldType}.
+   */
+  public RecordFieldType getFieldType() {
+    return fieldType;
   }
 
   /**

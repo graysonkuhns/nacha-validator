@@ -9,6 +9,12 @@ public class MalformedNachaFileException extends RuntimeException {
 
   /**
    * Constructor.
+   */
+  public MalformedNachaFileException() {
+  }
+
+  /**
+   * Constructor.
    *
    * @param message The failure message.
    */
