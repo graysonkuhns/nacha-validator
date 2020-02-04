@@ -25,6 +25,13 @@ public interface EntryDetail {
   long getReceiverRoutingNumber();
 
   /**
+   * Gets the check digit for the routing number of the receiving institution.
+   *
+   * @return The check digit for the routing number of the receiving institution.
+   */
+  int getReceiverRoutingNumberCheckDigit();
+
+  /**
    * Gets the account number of the receiving institution.
    *
    * @return The account number of the receiving institution.

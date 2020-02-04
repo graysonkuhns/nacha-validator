@@ -44,18 +44,35 @@ public class DefaultEntryDetailParser implements EntryDetailParser {
         TransactionType.getForCode(
             fieldParser.getInt(record, "transactionType", 2, 3));
 
-    final long receiverRoutingNumber = fieldParser.getLong(record, "receiverRoutingNumber", 4, 11);
-    final String receiverAccountNumber = fieldParser.getString(record, "receiverAccountNumber", 13, 29);
-    final double transactionAmount = fieldParser.getDollarAmount(record, "transactionAmount", 30, 39);
-    final String receiverIdNumber = fieldParser.getString(record, "receiverIdNumber", 40, 54);
-    final String receiverName = fieldParser.getString(record, "receiverName", 55, 76);
+    final long receiverRoutingNumber = fieldParser.getLong(
+        record, "receiverRoutingNumber", 4, 11);
+
+    final int receiverRoutingNumberCheckDigit = fieldParser.getInt(
+        record, "receiverRoutingNumberCheckDigit", 12, 12);
+
+    final String receiverAccountNumber = fieldParser.getString(
+        record, "receiverAccountNumber", 13, 29);
+
+    final double transactionAmount = fieldParser.getDollarAmount(
+        record, "transactionAmount", 30, 39);
+
+    final String receiverIdNumber = fieldParser.getString(
+        record, "receiverIdNumber", 40, 54);
+
+    final String receiverName = fieldParser.getString(
+        record, "receiverName", 55, 76);
+
     final String discretionaryData = null;
-    final boolean hasAddenda = fieldParser.getBoolean(record, "hasAddenda", 79, 79);
-    final long traceNumber = fieldParser.getLong(record, "traceNumber", 80, 94);
+    final boolean hasAddenda = fieldParser.getBoolean(
+        record, "hasAddenda", 79, 79);
+
+    final long traceNumber = fieldParser.getLong(
+        record, "traceNumber", 80, 94);
 
     return entryDetailFactory.create(
         transactionType,
         receiverRoutingNumber,
+        receiverRoutingNumberCheckDigit,
         receiverAccountNumber,
         transactionAmount,
         receiverIdNumber,

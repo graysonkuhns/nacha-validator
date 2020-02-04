@@ -15,6 +15,7 @@ public interface EntryDetailFactory {
    *
    * @param transactionType The {@link TransactionType}.
    * @param receiverRoutingNumber The routing number of the receiving institution.
+   * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
    * @param receiverAccountNumber The account number of the receiving institution.
    * @param transactionAmount The dollar amount of the transaction.
    * @param receiverIdNumber The receiver identification number.
@@ -27,6 +28,7 @@ public interface EntryDetailFactory {
   EntryDetail create(
       @Assisted("transactionType") TransactionType transactionType,
       @Assisted("receiverRoutingNumber") long receiverRoutingNumber,
+      @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
       @Assisted("receiverAccountNumber") String receiverAccountNumber,
       @Assisted("transactionAmount") double transactionAmount,
       @Assisted("receiverIdNumber") String receiverIdNumber,

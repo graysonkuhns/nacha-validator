@@ -20,6 +20,7 @@ public class DefaultEntryDetail implements EntryDetail {
   // Properties
   private final TransactionType transactionType;
   private final long receiverRoutingNumber;
+  private final int receiverRoutingNumberCheckDigit;
   private final String receiverAccountNumber;
   private final double transactionAmount;
   private final String receiverIdNumber;
@@ -33,6 +34,7 @@ public class DefaultEntryDetail implements EntryDetail {
    *
    * @param transactionType The {@link TransactionType}.
    * @param receiverRoutingNumber The routing number of the receiving institution.
+   * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
    * @param receiverAccountNumber The account number of the receiving institution.
    * @param transactionAmount The dollar amount of the transaction.
    * @param receiverIdNumber The receiver identification number.
@@ -45,6 +47,7 @@ public class DefaultEntryDetail implements EntryDetail {
   DefaultEntryDetail(
       @Assisted("transactionType") final TransactionType transactionType,
       @Assisted("receiverRoutingNumber") final long receiverRoutingNumber,
+      @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
       @Assisted("receiverAccountNumber") final String receiverAccountNumber,
       @Assisted("transactionAmount") final double transactionAmount,
       @Assisted("receiverIdNumber") @Nullable final String receiverIdNumber,
@@ -55,6 +58,7 @@ public class DefaultEntryDetail implements EntryDetail {
 
     this.transactionType = transactionType;
     this.receiverRoutingNumber = receiverRoutingNumber;
+    this.receiverRoutingNumberCheckDigit = receiverRoutingNumberCheckDigit;
     this.receiverAccountNumber = receiverAccountNumber;
     this.transactionAmount = transactionAmount;
     this.receiverIdNumber = receiverIdNumber;
@@ -82,6 +86,16 @@ public class DefaultEntryDetail implements EntryDetail {
   @Override
   public long getReceiverRoutingNumber() {
     return receiverRoutingNumber;
+  }
+
+  /**
+   * Gets the check digit for the routing number of the receiving institution.
+   *
+   * @return The check digit for the routing number of the receiving institution.
+   */
+  @Override
+  public int getReceiverRoutingNumberCheckDigit() {
+    return receiverRoutingNumberCheckDigit;
   }
 
   /**
