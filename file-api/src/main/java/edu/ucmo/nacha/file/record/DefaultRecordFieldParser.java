@@ -18,12 +18,18 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The {@link String} field.
    */
   @Override
-  public String getString(final String record, int start, int end) {
+  public String getString(
+      final String record,
+      final String fieldName,
+      int start,
+      int end) {
+
     // Convert CommerceBank's position specification to comp. sci. specification (start = 0).
     // We can leave the end position alone because Java's
     // substring method uses an exclusive end position.
@@ -34,7 +40,8 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
     try {
       field = record.substring(start, end);
     } catch (IndexOutOfBoundsException ex) {
-      throw new RecordFieldParseException(ex);
+      throw new RecordFieldParseException(
+          record, fieldName, RecordFieldType.STRING, start, end, ex);
     }
 
     // Remove leading and trailing whitespace from the field
@@ -49,17 +56,28 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The int field.
    */
   @Override
-  public int getInt(final String record, final int start, final int end) {
+  public int getInt(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
+
     // Get the field data
-    final String field = getString(record, start, end);
+    final String field = getString(record, fieldName, start, end);
 
     // Convert to int
-    return Integer.parseInt(field);
+    try {
+      return Integer.parseInt(field);
+    } catch (NumberFormatException ex) {
+      throw new RecordFieldParseException(
+          record, fieldName, RecordFieldType.INT, start, end, ex);
+    }
   }
 
   /**
@@ -70,17 +88,28 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The long field.
    */
   @Override
-  public long getLong(final String record, final int start, final int end) {
+  public long getLong(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
+
     // Get the field data
-    final String field = getString(record, start, end);
+    final String field = getString(record, fieldName, start, end);
 
     // Convert to long
-    return Long.parseLong(field);
+    try {
+      return Long.parseLong(field);
+    } catch (NumberFormatException ex) {
+      throw new RecordFieldParseException(
+          record, fieldName, RecordFieldType.LONG, start, end, ex);
+    }
   }
 
   /**
@@ -91,17 +120,28 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The double field.
    */
   @Override
-  public double getDouble(final String record, final int start, final int end) {
+  public double getDouble(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
+
     // Get the field data
-    final String field = getString(record, start, end);
+    final String field = getString(record, fieldName, start, end);
 
     // Convert to double
-    return Double.parseDouble(field);
+    try {
+      return Double.parseDouble(field);
+    } catch (NumberFormatException ex) {
+      throw new RecordFieldParseException(
+          record, fieldName, RecordFieldType.DOUBLE, start, end, ex);
+    }
   }
 
   /**
@@ -112,14 +152,20 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The boolean field.
    */
   @Override
-  public boolean getBoolean(final String record, final int start, final int end) {
+  public boolean getBoolean(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
+
     // Get the field data
-    final int field = getInt(record, start, end);
+    final int field = getInt(record, fieldName, start, end);
 
     // Convert to boolean
     switch (field) {
@@ -128,7 +174,13 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
       case 1:
         return true;
       default:
-        throw new RuntimeException();
+        throw new RecordFieldParseException(
+            record,
+            fieldName,
+            RecordFieldType.BOOLEAN,
+            start,
+            end,
+            String.format("%d could not be converted to boolean", field));
     }
   }
 
@@ -140,36 +192,50 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
    * </note>
    *
    * @param record The full record.
+   * @param fieldName The field name.
    * @param start The start position of the field, inclusive.
    * @param end The end position of the field, inclusive.
    * @return The dollar amount field.
    */
   @Override
-  public double getDollarAmount(final String record, final int start, final int end) {
-    // Get the field data
-    final String field = getString(record, start, end);
+  public double getDollarAmount(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
 
+    // Get the field data
+    final String field = getString(record, fieldName, start, end);
+
+    // There must be more than 2 characters
     if (field.length() < 2) {
-      throw new RuntimeException("Less than 2 length");
+      throw new RecordFieldParseException(
+          record,
+          fieldName,
+          RecordFieldType.INT,
+          start,
+          end,
+          "The dollar amount character length cannot be less than 2");
     }
 
-    String dollarString;
-    String centsString;
+    // Extract the currency component values
+    final String dollarString;
+    final String centsString;
 
     if (field.length() == 2) {
       dollarString = "0";
       centsString = field;
     } else {
-      int centStart = field.length() - 2;
+      final int centStart = field.length() - 2;
       dollarString = field.substring(0, centStart);
       centsString = field.substring(centStart);
     }
 
-    centsString = "0.".concat(centsString);
+    // Parse the current component values
+    final double dollars = Double.parseDouble(dollarString);
+    final double cents = Double.parseDouble(centsString) / 100;
 
-    double total = Double.parseDouble(dollarString);
-    total += Double.parseDouble(centsString);
-
-    return total;
+    // Calculate the sum
+    return (dollars + cents);
   }
 }

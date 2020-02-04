@@ -42,16 +42,16 @@ public class DefaultEntryDetailParser implements EntryDetailParser {
   public EntryDetail parse(final String record) {
     final TransactionType transactionType =
         TransactionType.getForCode(
-            fieldParser.getInt(record, 2, 3));
+            fieldParser.getInt(record, "transactionType", 2, 3));
 
-    final long receiverRoutingNumber = fieldParser.getLong(record, 4, 11);
-    final String receiverAccountNumber = fieldParser.getString(record, 13, 29);
-    final double transactionAmount = fieldParser.getDollarAmount(record, 30, 39);
-    final String receiverIdNumber = fieldParser.getString(record, 40, 54);
-    final String receiverName = fieldParser.getString(record, 55, 76);
+    final long receiverRoutingNumber = fieldParser.getLong(record, "receiverRoutingNumber", 4, 11);
+    final String receiverAccountNumber = fieldParser.getString(record, "receiverAccountNumber", 13, 29);
+    final double transactionAmount = fieldParser.getDollarAmount(record, "transactionAmount", 30, 39);
+    final String receiverIdNumber = fieldParser.getString(record, "receiverIdNumber", 40, 54);
+    final String receiverName = fieldParser.getString(record, "receiverName", 55, 76);
     final String discretionaryData = null;
-    final boolean hasAddenda = fieldParser.getBoolean(record, 79, 79);
-    final long traceNumber = fieldParser.getLong(record, 80, 94);
+    final boolean hasAddenda = fieldParser.getBoolean(record, "hasAddenda", 79, 79);
+    final long traceNumber = fieldParser.getLong(record, "traceNumber", 80, 94);
 
     return entryDetailFactory.create(
         transactionType,
