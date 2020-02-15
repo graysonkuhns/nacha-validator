@@ -56,7 +56,7 @@ public class DefaultEntryDetailParser implements EntryDetailParser {
     final double transactionAmount = fieldParser.getDollarAmount(
         record, "transactionAmount", 30, 39);
 
-    final String receiverIdNumber = fieldParser.getString(
+    final String receiverIdNumber = fieldParser.getStringOrNull(
         record, "receiverIdNumber", 40, 54);
 
     final String receiverName = fieldParser.getString(
