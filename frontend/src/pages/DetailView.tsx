@@ -1,4 +1,5 @@
 import React from 'react';
+import RecordView, { Record, RecordError } from './RecordView';
 
 const Section: React.FC<{ header: string }> = ({ header, children }) => {
   return (
@@ -6,7 +7,7 @@ const Section: React.FC<{ header: string }> = ({ header, children }) => {
       <div style={{
         color: 'white',
         padding: '5px',
-        minWidth: '100%',
+        minWidth: '90%',
         textAlign: 'center',
         fontSize: '1.3em',
         backgroundColor: 'black',
@@ -20,14 +21,7 @@ const Section: React.FC<{ header: string }> = ({ header, children }) => {
   )
 };
 
-const MessageContentView: React.FC = () => {
-  const messages = [
-    'BATCH CONTROL RECORD (8) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
-    'BATCH CONTROL RECORD (8) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
-    'FILE CONTROL RECORD (9) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
-    'FILE CONTROL RECORD (9) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
-  ];
-
+const MessageContentView: React.FC<{ errors: RecordError[] }> = ({ errors }) => {
   return (
     <Section header="Message">
       <div style={{
@@ -52,9 +46,9 @@ const MessageContentView: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
         }}>
-          {messages.map((msg, index) => (
+          {errors.map((error, index) => (
             <span key={index}>
-              {msg}
+              {error.reason}
             </span>
           ))}
         </div>
@@ -63,19 +57,78 @@ const MessageContentView: React.FC = () => {
   );
 };
 
-const DetailContentView: React.FC = () => {
+const DetailContentView: React.FC<{ errors: RecordError[] }> = ({ errors }) => {
+  const records: Record[] = [
+    {
+      kind: 'FILE HEADER RECORD',
+      count: '1',
+      destination: '101000019',
+      origin: '741258964',
+      originName: 'THE FAB FOUR CORP',
+    },
+    {
+      kind: 'BATCH HEADER RECORD',
+      count: '5',
+      companyName: 'STRAWBERRYFIELDS',
+      companyId: '741258964',
+      effectiveDate: '10/31/2019',
+    },
+    {
+      kind: 'BATCH CONTROL RECORD',
+      count: '8',
+      entryCount: '18',
+      entryHash: '0181800018',
+      debitEntryAmount: '$0.00',
+      creditEntryAmount: '$0.83',
+      companyId: '741258964',
+    },
+    {
+      kind: 'FILE CONTROL RECORD',
+      count: '9',
+      entryCount: '18',
+      entryHash: '0181800018',
+      debitEntryAmount: '$0.00',
+      creditEntryAmount: '$0.83',
+    },
+  ];
+
   return (
     <Section header="Company Specification / File Details">
-      Placeholder
+      {records.map((record, index) => (
+        <RecordView
+          key={index}
+          record={record}
+          errors={errors}
+        />
+      ))}
     </Section>
   );
 };
 
 export default function DetailView() {
+  const errors: RecordError[] = [
+    {
+      field: 'debitEntryAmount',
+      reason: 'BATCH CONTROL RECORD (8) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
+    },
+    {
+      field: 'creditEntryAmount',
+      reason: 'BATCH CONTROL RECORD (8) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
+    },
+    {
+      field: 'debitEntryAmount',
+      reason: 'FILE CONTROL RECORD (9) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
+    },
+    {
+      field: 'creditEntryAmount',
+      reason: 'FILE CONTROL RECORD (9) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
+    },
+  ];
+
   return (
     <>
-      <MessageContentView />
-      <DetailContentView />
+      <MessageContentView errors={errors} />
+      <DetailContentView errors={errors} />
     </>
   );
 }
