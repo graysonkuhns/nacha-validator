@@ -27,6 +27,22 @@ public class DefaultRecordFieldParserTest {
         .isEqualTo("567");
   }
 
+  // #getStringOrNull()
+  @Test
+  public void getStringOrNull__ReturnsStringWhenPresent__Test() {
+    assertThat(parser
+        .getStringOrNull("  567  ", FIELD_NAME, 2, 6))
+        .isNotNull()
+        .isEqualTo("567");
+  }
+
+  @Test
+  public void getStringOrNull__ReturnsNullWhenNotPresent__Test() {
+    assertThat(parser
+        .getStringOrNull("     ", FIELD_NAME, 2, 4))
+        .isNull();
+  }
+
   // #getInt()
   @Test
   public void getInt__IsSuccessful__ForValidRequest__Test() {

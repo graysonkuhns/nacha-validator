@@ -23,6 +23,21 @@ public interface RecordFieldParser {
   String getString(String record, String fieldName, int start, int end);
 
   /**
+   * Gets a {@link String} field in a record or null if the {@link String} is empty.
+   *
+   * <note>
+   *   1 is the first position in a record.
+   * </note>
+   *
+   * @param record The full record.
+   * @param fieldName The field name.
+   * @param start The start position of the field, inclusive.
+   * @param end The end position of the field, inclusive.
+   * @return The {@link String} field or null.
+   */
+  String getStringOrNull(String record, String fieldName, int start, int end);
+
+  /**
    * Gets an int field in a record.
    *
    * <note>

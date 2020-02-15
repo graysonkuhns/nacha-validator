@@ -62,7 +62,9 @@ public class DefaultEntryDetailParser implements EntryDetailParser {
     final String receiverName = fieldParser.getString(
         record, "receiverName", 55, 76);
 
-    final String discretionaryData = null;
+    final String discretionaryData = fieldParser.getStringOrNull(
+        record, "discretionaryData", 77, 78);
+
     final boolean hasAddenda = fieldParser.getBoolean(
         record, "hasAddenda", 79, 79);
 

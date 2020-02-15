@@ -49,6 +49,30 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
   }
 
   /**
+   * Gets a {@link String} field in a record or null if the {@link String} is empty.
+   *
+   * <note>
+   * 1 is the first position in a record.
+   * </note>
+   *
+   * @param record The full record.
+   * @param fieldName The field name.
+   * @param start The start position of the field, inclusive.
+   * @param end The end position of the field, inclusive.
+   * @return The {@link String} field or null.
+   */
+  @Override
+  public String getStringOrNull(
+      final String record,
+      final String fieldName,
+      final int start,
+      final int end) {
+
+    final String field = getString(record, fieldName, start, end);
+    return field.isEmpty() ? null : field;
+  }
+
+  /**
    * Gets an int field in a record.
    *
    * <note>

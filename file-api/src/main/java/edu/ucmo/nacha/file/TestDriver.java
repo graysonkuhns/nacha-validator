@@ -34,5 +34,10 @@ public class TestDriver {
         "6321010000191234567890111213100000000021300   " +
             "        MUSTARD MISTER M        0101000010000002");
     System.out.println(entry.toString());
+
+    entry = parser.parse(
+        "6321010000191234567890111213100000000021300   " +
+            "        MUSTARD MISTER M      DD0101000010000002");
+    System.out.println(entry.toString());
   }
 }
