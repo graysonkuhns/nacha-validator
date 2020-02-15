@@ -167,21 +167,4 @@ public class DefaultEntryDetail implements EntryDetail {
   public long getTraceNumber() {
     return traceNumber;
   }
-
-  /**
-   * Gets the {@link String} representation.
-   *
-   * @return The {@link String} representation.
-   */
-  @Override
-  public String toString() {
-    try {
-      return new ObjectMapper()
-          .enable(SerializationFeature.INDENT_OUTPUT)
-          .registerModule(new Jdk8Module())
-          .writeValueAsString(this);
-    } catch (JsonProcessingException ex) {
-      throw new RuntimeException(ex);
-    }
-  }
 }
