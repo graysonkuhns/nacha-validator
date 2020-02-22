@@ -256,8 +256,15 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
     }
 
     // Parse the current component values
-    final double dollars = Double.parseDouble(dollarString);
-    final double cents = Double.parseDouble(centsString) / 100;
+    final double dollars;
+    final double cents;
+    try {
+      dollars = Double.parseDouble(dollarString);
+      cents = Double.parseDouble(centsString) / 100;
+    } catch (NumberFormatException ex) {
+      throw new RecordFieldParseException(
+              record, fieldName, RecordFieldType.DOUBLE, start, end, ex);
+    }
 
     // Calculate the sum
     return (dollars + cents);

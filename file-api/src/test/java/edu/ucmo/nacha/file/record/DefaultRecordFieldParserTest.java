@@ -3,7 +3,9 @@ package edu.ucmo.nacha.file.record;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * {@link DefaultRecordFieldParser} test case.
@@ -14,6 +16,10 @@ public class DefaultRecordFieldParserTest {
 
   // Constants
   private static final String FIELD_NAME = "testRecordField";
+
+  // Rules
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
 
   // Fixtures
   private DefaultRecordFieldParser parser;
@@ -112,6 +118,15 @@ public class DefaultRecordFieldParserTest {
     assertThat(parser
         .getDollarAmount("  000056729  ", FIELD_NAME, 2, 12))
         .isEqualTo(567.29);
+  }
+
+  @Test
+  public void getDollarAmount__ThrowsException__ForMalformedAmount__Test() {
+    thrown.expect(RecordFieldParseException.class);
+
+    assertThat(parser
+            .getDollarAmount("  00005  6729  ", FIELD_NAME, 2, 12))
+            .isEqualTo(567.29);
   }
 
   @Before
