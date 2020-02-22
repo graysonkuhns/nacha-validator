@@ -1,4 +1,4 @@
-package edu.ucmo.nacha.file.record;
+package edu.ucmo.nacha.file.recordold;
 
 import edu.ucmo.nacha.file.MalformedNachaFileException;
 

@@ -1,4 +1,4 @@
-package edu.ucmo.nacha.file.record;
+package edu.ucmo.nacha.file.recordold;
 
 /**
  * Record field type.
@@ -11,5 +11,5 @@ public enum RecordFieldType {
   LONG,
   DOUBLE,
   BOOLEAN,
-  DOLLAR_AMOUMT
+  DOLLAR_AMOUNT
 }

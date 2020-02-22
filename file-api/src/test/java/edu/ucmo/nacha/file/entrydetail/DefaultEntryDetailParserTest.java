@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
-import edu.ucmo.nacha.file.record.DefaultRecordFieldParser;
+import edu.ucmo.nacha.file.recordold.DefaultRecordFieldParser;
 import org.junit.Before;
 import org.junit.Test;
 
