@@ -9,7 +9,7 @@ export default function App() {
       width: '70%',
       marginLeft: '15%',
       marginRight: '15%',
-      boxShadow: '5px 10px',
+      border: '1px solid black',
     }}>
       <FileView />
       <DetailView />
