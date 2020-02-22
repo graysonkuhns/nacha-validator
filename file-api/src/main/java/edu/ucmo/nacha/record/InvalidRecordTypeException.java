@@ -1,4 +1,4 @@
-package edu.ucmo.nacha.file.record;
+package edu.ucmo.nacha.record;
 
 /**
  * Invalid {@link RecordType} exception.
