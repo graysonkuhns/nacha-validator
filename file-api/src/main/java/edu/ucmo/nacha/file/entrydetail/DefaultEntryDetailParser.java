@@ -1,7 +1,7 @@
 package edu.ucmo.nacha.file.entrydetail;
 
 import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
-import edu.ucmo.nacha.file.record.RecordFieldParser;
+import edu.ucmo.nacha.file.recordold.RecordFieldParser;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
