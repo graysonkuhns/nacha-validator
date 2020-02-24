@@ -1,5 +1,7 @@
 package edu.ucmo.nacha.record;
 
+import com.google.inject.assistedinject.Assisted;
+
 import javax.inject.Inject;
 import java.util.Map;
 

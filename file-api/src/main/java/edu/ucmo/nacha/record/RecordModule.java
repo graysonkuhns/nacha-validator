@@ -1,7 +1,8 @@
 package edu.ucmo.nacha.record;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.google.inject.multibindings.Multibinder;
 
 /**
  * Record module.
@@ -15,8 +16,14 @@ public class RecordModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        install(new FactoryModuleBuilder()
-                .implement(Record.class, DefaultRecord.class)
-                .build(RecordFactory.class));
+        // Bind record parsers
+        Multibinder<RecordParser> recordParserMultibinder = Multibinder.newSetBinder(binder(), RecordParser.class);
+        ImmutableSet
+                .of(
+                        RecordType.ENTRY_DETAIL
+                )
+                .forEach(recordType -> recordParserMultibinder
+                        .addBinding()
+                        .toInstance(new SpecializedRecordParser(recordType)));
     }
 }
