@@ -8,13 +8,6 @@ package edu.ucmo.nacha.record;
 public interface RecordParser {
 
     /**
-     * Gets the supported {@link RecordType}.
-     *
-     * @return The supported {@link RecordType}.
-     */
-    RecordType getSupportedRecordType();
-
-    /**
      * Parses a {@link Record}.
      *
      * @param input The input to parse.

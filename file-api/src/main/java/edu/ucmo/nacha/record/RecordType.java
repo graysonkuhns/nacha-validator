@@ -42,6 +42,16 @@ public enum RecordType {
      * @param typeCode The ID.
      * @return The {@link RecordType}.
      */
+    public static RecordType getForId(final char typeCode) {
+        return getForId(Character.toString(typeCode));
+    }
+
+    /**
+     * Gets the {@link RecordType} for an ID.
+     *
+     * @param typeCode The ID.
+     * @return The {@link RecordType}.
+     */
     public static RecordType getForId(final String typeCode) {
         // Convert to string code to a numeric code
         final int code;

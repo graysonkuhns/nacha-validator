@@ -16,14 +16,19 @@ public class RecordModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        // Bind record parsers
-        Multibinder<RecordParser> recordParserMultibinder = Multibinder.newSetBinder(binder(), RecordParser.class);
+        // Specialized record parsers
+        Multibinder<SpecializedRecordParser> recordParsersMultibinder =
+                Multibinder.newSetBinder(binder(), SpecializedRecordParser.class);
+
         ImmutableSet
                 .of(
                         RecordType.ENTRY_DETAIL
                 )
-                .forEach(recordType -> recordParserMultibinder
+                .forEach(recordType -> recordParsersMultibinder
                         .addBinding()
                         .toInstance(new SpecializedRecordParser(recordType)));
+
+        // Aggregate record parser
+        bind(RecordParser.class).to(AggregateRecordParser.class);
     }
 }

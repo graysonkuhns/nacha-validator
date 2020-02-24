@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * General {@link RecordParser} implementation.
+ * Specialized {@link RecordParser} for a specific  {@link RecordType}.
  *
  * @author Grayson Kuhns
  */
