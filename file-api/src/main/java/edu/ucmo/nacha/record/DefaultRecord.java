@@ -1,7 +1,6 @@
 package edu.ucmo.nacha.record;
 
 import java.util.Map;
-import javax.inject.Inject;
 
 /**
  * Default {@link Record} implementation.
@@ -20,7 +19,6 @@ public class DefaultRecord implements Record {
    * @param type The {@link RecordType}.
    * @param fields The fields.
    */
-  @Inject
   DefaultRecord(
       final RecordType type,
       final Map<RecordField, String> fields) {
