@@ -11,7 +11,7 @@ public interface RecordFieldParser {
    * Gets a {@link String} field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -26,7 +26,7 @@ public interface RecordFieldParser {
    * Gets a {@link String} field in a record or null if the {@link String} is empty.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -41,7 +41,7 @@ public interface RecordFieldParser {
    * Gets an int field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -56,7 +56,7 @@ public interface RecordFieldParser {
    * Gets a long field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -71,7 +71,7 @@ public interface RecordFieldParser {
    * Gets a double field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -86,7 +86,7 @@ public interface RecordFieldParser {
    * Gets a boolean field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.
@@ -101,7 +101,7 @@ public interface RecordFieldParser {
    * Gets a dollar amount field in a record.
    *
    * <note>
-   *   1 is the first position in a record.
+   * 1 is the first position in a record.
    * </note>
    *
    * @param record The full record.

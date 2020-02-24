@@ -9,17 +9,17 @@ import java.util.Map;
  */
 public interface Record {
 
-    /**
-     * Gets the type.
-     *
-     * @return The type.
-     */
-    RecordType getType();
+  /**
+   * Gets the type.
+   *
+   * @return The type.
+   */
+  RecordType getType();
 
-    /**
-     * Gets the fields.
-     *
-     * @return The fields.
-     */
-    Map<RecordField, String> getFields();
+  /**
+   * Gets the fields.
+   *
+   * @return The fields.
+   */
+  Map<RecordField, String> getFields();
 }

@@ -263,7 +263,7 @@ public class DefaultRecordFieldParser implements RecordFieldParser {
       cents = Double.parseDouble(centsString) / 100;
     } catch (NumberFormatException ex) {
       throw new RecordFieldParseException(
-              record, fieldName, RecordFieldType.DOUBLE, start, end, ex);
+          record, fieldName, RecordFieldType.DOUBLE, start, end, ex);
     }
 
     // Calculate the sum

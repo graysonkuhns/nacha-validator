@@ -1,9 +1,5 @@
 package edu.ucmo.nacha.file.entrydetail;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
 import java.util.Optional;
