@@ -41,8 +41,6 @@ public class AggregateRecordParser implements RecordParser {
    */
   @Override
   public Record parse(final String input) {
-    System.out.printf("parsing %s\n", input);
-
     // Ensure the input is the appropriate length
     if (input.length() != RECORD_LENGTH) {
       throw new InvalidRecordException(
