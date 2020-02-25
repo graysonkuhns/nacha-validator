@@ -13,7 +13,7 @@ public class TestDriver {
   public static void main(String[] args) throws Exception {
     Injector injector = Guice.createInjector(new RecordModule());
     RecordParser parser = injector.getInstance(RecordParser.class);
-    Record entryDetail = parser.parse("632101000019123456789011121310000000002               MUSTARD MISTER M      DD0101000010000002");
+    Record entryDetail = parser.parse("6321010000191234567890111213100000000021300           MUSTARD MISTER M      DD0101000010000002");
     System.out.println(new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).writeValueAsString(entryDetail));
   }
 }
