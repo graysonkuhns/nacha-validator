@@ -110,18 +110,26 @@ export default function DetailView() {
     {
       field: 'debitEntryAmount',
       reason: 'BATCH CONTROL RECORD (8) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
+      start: 64,
+      length: 10,
     },
     {
       field: 'creditEntryAmount',
       reason: 'BATCH CONTROL RECORD (8) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
+      start: 74,
+      length: 10,
     },
     {
       field: 'debitEntryAmount',
       reason: 'FILE CONTROL RECORD (9) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
+      start: 104,
+      length: 10,
     },
     {
       field: 'creditEntryAmount',
       reason: 'FILE CONTROL RECORD (9) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
+      start: 114,
+      length: 10,
     },
   ];
 

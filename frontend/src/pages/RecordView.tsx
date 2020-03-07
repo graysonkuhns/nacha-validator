@@ -45,6 +45,8 @@ export type Record =
 export interface RecordError {
   field: string;
   reason: string;
+  start: number;
+  length: number;
 }
 
 interface RecordViewProps {
