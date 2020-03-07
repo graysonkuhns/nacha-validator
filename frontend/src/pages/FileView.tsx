@@ -29,12 +29,16 @@ const GrayButton: React.FC<GrayButtonProps> = ({ onClick, text, disabled }) => {
 };
 
 const FilePreview: React.FC = () => {
+  let text = '';
+  const chars = 'abcdefghijklmnop';
+  for (let i = 0; i < 94 * 30; i++)
+    text += chars.charAt((Math.random() * chars.length) % chars.length);
+
+  const lines = text.match(/.{1,94}/g) || [];
+
   return (
-    <div style={{
-      minWidth: '80%',
-      minHeight: '60%',
-    }}>
-      Some text area
+    <div style={{ textAlign: 'center' }}>
+      TODO
     </div>
   );
 };
