@@ -27,11 +27,21 @@ public class DefaultRecord implements Record {
     this.fields = fields;
   }
 
+  /**
+   * Gets the type.
+   *
+   * @return The type.
+   */
   @Override
   public RecordType getType() {
     return type;
   }
 
+  /**
+   * Gets the fields.
+   *
+   * @return The fields.
+   */
   @Override
   public Map<RecordField, String> getFields() {
     return fields;
