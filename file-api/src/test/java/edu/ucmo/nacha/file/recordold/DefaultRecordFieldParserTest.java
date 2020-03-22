@@ -125,8 +125,8 @@ public class DefaultRecordFieldParserTest {
     thrown.expect(RecordFieldParseException.class);
 
     assertThat(parser
-            .getDollarAmount("  00005  6729  ", FIELD_NAME, 2, 12))
-            .isEqualTo(567.29);
+        .getDollarAmount("  00005  6729  ", FIELD_NAME, 2, 12))
+        .isEqualTo(567.29);
   }
 
   @Before
