@@ -40,52 +40,52 @@ public class SpecializedRecordParserTest {
         .isNotEmpty();
 
     assertThat(fields
-        .get(RecordField.RECEIVER_ROUTING_NUMBER_CHECK_DIGIT))
+        .get(RecordField.ED_RECEIVER_ROUTING_NUMBER_CHECK_DIGIT))
         .isNotNull()
         .isEqualTo("9");
 
     assertThat(fields
-        .get(RecordField.RECEIVER_ROUTING_NUMBER))
+        .get(RecordField.ED_RECEIVER_ROUTING_NUMBER))
         .isNotNull()
         .isEqualTo("10100001");
 
     assertThat(fields
-        .get(RecordField.RECEIVER_NAME))
+        .get(RecordField.ED_RECEIVER_NAME))
         .isNotNull()
         .isEqualTo("MUSTARD MISTER M      ");
 
     assertThat(fields
-        .get(RecordField.RECEIVER_ACCOUNT_NUMBER))
+        .get(RecordField.ED_RECEIVER_ACCOUNT_NUMBER))
         .isNotNull()
         .isEqualTo("12345678901112131");
 
     assertThat(fields
-        .get(RecordField.DISCRETIONARY_DATA))
+        .get(RecordField.ED_DISCRETIONARY_DATA))
         .isNotNull()
         .isEqualTo("DD");
 
     assertThat(fields
-        .get(RecordField.TRANSACTION_AMOUNT))
+        .get(RecordField.ED_TRANSACTION_AMOUNT))
         .isNotNull()
         .isEqualTo("0000000002");
 
     assertThat(fields
-        .get(RecordField.TRACE_NUMBER))
+        .get(RecordField.ED_TRACE_NUMBER))
         .isNotNull()
         .isEqualTo("101000010000002");
 
     assertThat(fields
-        .get(RecordField.RECEIVER_ID_NUMBER))
+        .get(RecordField.ED_RECEIVER_ID_NUMBER))
         .isNotNull()
         .isEqualTo("1300           ");
 
     assertThat(fields
-        .get(RecordField.HAS_ADDENDA))
+        .get(RecordField.ED_HAS_ADDENDA))
         .isNotNull()
         .isEqualTo("0");
 
     assertThat(fields
-        .get(RecordField.TRANSACTION_TYPE))
+        .get(RecordField.ED_TRANSACTION_TYPE))
         .isNotNull()
         .isEqualTo("32");
   }
