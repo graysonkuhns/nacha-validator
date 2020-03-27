@@ -36,14 +36,16 @@ public class RecordFieldTest {
         .isNotNull()
         .hasSize(12)
         .contains(RecordField.BH_SERVICE_CLASS_CODE)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.)
-        .contains(RecordField.);
+        .contains(RecordField.BH_COMPANY_NAME)
+        .contains(RecordField.BH_DISCRETIONARY_DATA)
+        .contains(RecordField.BH_COMPANY_IDENTIFICATION)
+        .contains(RecordField.BH_STANDARD_ENTRY)
+        .contains(RecordField.BH_ENTRY_DESCRIPTION)
+        .contains(RecordField.BH_DESCRIPTIVE_DATE)
+        .contains(RecordField.BH_EFFECTIVE_ENTRY_DATE)
+        .contains(RecordField.BH_SETTLEMENT_DATE)
+        .contains(RecordField.BH_ORIGINATOR_STATUS_CODE)
+        .contains(RecordField.BH_ORIGINATING_DFI_ID)
+        .contains(RecordField.BH_BATCH_NUMBER);
   }
 }

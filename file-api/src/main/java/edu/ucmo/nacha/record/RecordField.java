@@ -21,7 +21,7 @@ public enum RecordField {
   RECEIVER_NAME(RecordType.ENTRY_DETAIL, 55, 76),
   DISCRETIONARY_DATA(RecordType.ENTRY_DETAIL, 77, 78),
   HAS_ADDENDA(RecordType.ENTRY_DETAIL, 79, 79),
-  TRACE_NUMBER(RecordType.ENTRY_DETAIL, 80, 94);
+  TRACE_NUMBER(RecordType.ENTRY_DETAIL, 80, 94),
 
   // Batch Header
   BH_SERVICE_CLASS_CODE(RecordType.BATCH_HEADER, 2, 4),
