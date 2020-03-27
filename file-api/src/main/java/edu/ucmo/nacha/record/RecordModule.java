@@ -22,7 +22,8 @@ public class RecordModule extends AbstractModule {
 
     ImmutableSet
         .of(
-            RecordType.ENTRY_DETAIL
+            RecordType.ENTRY_DETAIL,
+            RecordType.BATCH_HEADER
         )
         .forEach(recordType -> recordParsersMultibinder
             .addBinding()

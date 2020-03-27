@@ -28,4 +28,22 @@ public class RecordFieldTest {
         .contains(RecordField.HAS_ADDENDA)
         .contains(RecordField.TRACE_NUMBER);
   }
+
+  @Test
+  public void getFields__ForBatchHeader__Test() {
+    assertThat(RecordField
+        .getFields(RecordType.BATCH_HEADER))
+        .isNotNull()
+        .hasSize(12)
+        .contains(RecordField.BH_SERVICE_CLASS_CODE)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.)
+        .contains(RecordField.);
+  }
 }
