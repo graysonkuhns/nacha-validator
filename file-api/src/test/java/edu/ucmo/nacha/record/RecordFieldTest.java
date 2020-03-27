@@ -50,6 +50,18 @@ public class RecordFieldTest {
   }
 
   @Test
+  public void getFields_ForEntryDetailAddenda_TexT() {
+    assertThat(RecordField
+        .getFields(RecordType.ENTRY_DETAIL_ADDENDA))
+        .isNotNull()
+        .hasSize(4)
+        .contains(RecordField.EDA_TYPE_CODE)
+        .contains(RecordField.EDA_PAYMENT_INFORMATION)
+        .contains(RecordField.EDA_ADDENDA_SEQUENCE_NUMBER)
+        .contains(RecordField.EDA_ENTRY_SEQUENCE_NUMBER);
+  }
+
+  @Test
   public void getFields__ForBatchHeader__Test() {
     assertThat(RecordField
         .getFields(RecordType.BATCH_HEADER))
