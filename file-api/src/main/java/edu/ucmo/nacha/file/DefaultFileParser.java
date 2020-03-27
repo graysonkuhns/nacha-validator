@@ -81,10 +81,9 @@ public class DefaultFileParser implements FileParser {
     final List<String> rawRecords = new ArrayList<>();
 
     // Collect the raw records
-    String record = reader.readLine();
-    while (record != null) {
+    String record;
+    while ((record = reader.readLine()) != null) {
       rawRecords.add(record);
-      record = reader.readLine();
     }
 
     return parse(rawRecords);
