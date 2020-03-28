@@ -56,7 +56,7 @@ public class RecordFieldTest {
         .isNotNull()
         .hasSize(10)
         .contains(RecordField.BC_SERVICE_CLASS_CODE)
-        .contains(RecordField.BC_ENTRY_COUNT)
+        .contains(RecordField.BC_ENTRY_AND_ADDENDA_COUNT)
         .contains(RecordField.BC_ENTRY_HASH)
         .contains(RecordField.BC_DEBIT_AMOUNT)
         .contains(RecordField.BC_CREDIT_AMOUNT)
