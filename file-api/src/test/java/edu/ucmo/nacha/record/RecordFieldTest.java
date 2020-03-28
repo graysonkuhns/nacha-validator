@@ -65,6 +65,16 @@ public class RecordFieldTest {
         .contains(RecordField.BC_RESERVED)
         .contains(RecordField.BC_ORIGINATING_DFI_ID)
         .contains(RecordField.BC_BATCH_NUMBER);
+
+  public void getFields_ForEntryDetailAddenda_TexT() {
+    assertThat(RecordField
+        .getFields(RecordType.ENTRY_DETAIL_ADDENDA))
+        .isNotNull()
+        .hasSize(4)
+        .contains(RecordField.EDA_TYPE_CODE)
+        .contains(RecordField.EDA_PAYMENT_INFORMATION)
+        .contains(RecordField.EDA_ADDENDA_SEQUENCE_NUMBER)
+        .contains(RecordField.EDA_ENTRY_SEQUENCE_NUMBER);
   }
 
   @Test
