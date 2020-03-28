@@ -69,7 +69,7 @@ public class RecordFieldTest {
         .hasSize(7)
         .contains(RecordField.FC_BATCH_COUNT)
         .contains(RecordField.FC_BLOCK_COUNT)
-        .contains(RecordField.FC_ENTRY_COUNT)
+        .contains(RecordField.FC_ENTRY_AND_ADDENDA_COUNT)
         .contains(RecordField.FC_ENTRY_HASH)
         .contains(RecordField.FC_DEBIT_AMOUNT)
         .contains(RecordField.FC_CREDIT_AMOUNT)
