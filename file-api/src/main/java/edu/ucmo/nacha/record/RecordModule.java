@@ -25,6 +25,7 @@ public class RecordModule extends AbstractModule {
             RecordType.FILE_HEADER,
             RecordType.ENTRY_DETAIL,
             RecordType.ENTRY_DETAIL_ADDENDA,
+            RecordType.FILE_CONTROL,
             RecordType.BATCH_HEADER
         )
         .forEach(recordType -> recordParsersMultibinder
