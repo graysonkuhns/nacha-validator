@@ -50,6 +50,24 @@ public class RecordFieldTest {
   }
 
   @Test
+  public void getFields__ForBatchControl__Test() {
+    assertThat(RecordField
+        .getFields(RecordType.BATCH_CONTROL))
+        .isNotNull()
+        .hasSize(10)
+        .contains(RecordField.BC_SERVICE_CLASS_CODE)
+        .contains(RecordField.BC_ENTRY_COUNT)
+        .contains(RecordField.BC_ENTRY_HASH)
+        .contains(RecordField.BC_DEBIT_AMOUNT)
+        .contains(RecordField.BC_CREDIT_AMOUNT)
+        .contains(RecordField.BC_COMPANY_IDENTIFICATION)
+        .contains(RecordField.BC_MESSAGE_AUTHENTICATION_CODE)
+        .contains(RecordField.BC_RESERVED)
+        .contains(RecordField.BC_ORIGINATING_DFI_ID)
+        .contains(RecordField.BC_BATCH_NUMBER);
+  }
+
+  @Test
   public void getFields__ForBatchHeader__Test() {
     assertThat(RecordField
         .getFields(RecordType.BATCH_HEADER))
