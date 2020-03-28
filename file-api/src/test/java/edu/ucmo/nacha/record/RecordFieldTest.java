@@ -78,6 +78,21 @@ public class RecordFieldTest {
   }
 
   @Test
+  public void getFields_ForFileControl_Test() {
+    assertThat(RecordField
+        .getFields(RecordType.FILE_CONTROL))
+        .isNotNull()
+        .hasSize(7)
+        .contains(RecordField.FC_BATCH_COUNT)
+        .contains(RecordField.FC_BLOCK_COUNT)
+        .contains(RecordField.FC_ENTRY_AND_ADDENDA_COUNT)
+        .contains(RecordField.FC_ENTRY_HASH)
+        .contains(RecordField.FC_DEBIT_AMOUNT)
+        .contains(RecordField.FC_CREDIT_AMOUNT)
+        .contains(RecordField.FC_RESERVED);
+  }
+
+  @Test
   public void getFields__ForBatchHeader__Test() {
     assertThat(RecordField
         .getFields(RecordType.BATCH_HEADER))
