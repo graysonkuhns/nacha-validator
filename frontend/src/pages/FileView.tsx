@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Grid } from '@material-ui/core';
 
 interface GrayButtonProps {
@@ -28,23 +28,59 @@ const GrayButton: React.FC<GrayButtonProps> = ({ onClick, text, disabled }) => {
   )
 };
 
-const FilePreview: React.FC = () => {
-  return <></>;
+const FilePreview: React.FC<{content: string | null}> = ({content}) => {
+  if (!content)
+    return null;
+
+  return (
+    <textarea
+      rows={30}
+      cols={95}
+      wrap="hard"
+      style={{
+        width: '100%',
+        minWidth: '100%',
+        textAlign: 'center',
+        fontFamily: '"Courier New", Courier, monospace',
+        fontSize: '1.1em',
+      }}
+    >
+      {content}
+    </textarea>
+  );
 };
 
 export default function FileView() {
+  const fileUploadRef = useRef<HTMLElement>();
+  const [content, setContent] = useState<string | null>(null);
+
+  const handleFileUpload = (event: any) => {
+    const reader = new FileReader();
+    reader.onload = (readEvent: any) => {
+      setContent(readEvent.target.result);
+    };
+    reader.readAsText(event.target.files[0]);
+  };
+
   return (
     <div style={{ border: '1px solid grey', minWidth: '90%', }}>
       <Grid container direction="column">
         <Grid item xs={12}>
-          <FilePreview />
+          <FilePreview content={content} />
         </Grid>
         <Grid item xs={12}>
           <Grid container direction="row" justify="space-around" style={{ padding: '1em' }}>
+            <input
+              hidden
+              type="file"
+              accept="text/*"
+              onChange={handleFileUpload}
+              ref={input => fileUploadRef.current = input || undefined}
+            />
             <GrayButton
               text="Browse"
-              disabled
-              onClick={() => {}}
+              disabled={content !== null}
+              onClick={() => fileUploadRef.current?.click()}
             />
             <GrayButton
               text="Validate"
@@ -53,6 +89,7 @@ export default function FileView() {
             />
             <GrayButton
               text="Clear"
+              disabled
               onClick={() => {}}
             />
           </Grid>
