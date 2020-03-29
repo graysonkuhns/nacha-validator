@@ -29,18 +29,7 @@ const GrayButton: React.FC<GrayButtonProps> = ({ onClick, text, disabled }) => {
 };
 
 const FilePreview: React.FC = () => {
-  let text = '';
-  const chars = 'abcdefghijklmnop';
-  for (let i = 0; i < 94 * 30; i++)
-    text += chars.charAt((Math.random() * chars.length) % chars.length);
-
-  const lines = text.match(/.{1,94}/g) || [];
-
-  return (
-    <div style={{ textAlign: 'center' }}>
-      TODO
-    </div>
-  );
+  return <></>;
 };
 
 export default function FileView() {
@@ -58,11 +47,12 @@ export default function FileView() {
               onClick={() => {}}
             />
             <GrayButton
-              text="Cancel"
+              text="Validate"
+              disabled
               onClick={() => {}}
             />
             <GrayButton
-              text="Validate"
+              text="Clear"
               onClick={() => {}}
             />
           </Grid>
