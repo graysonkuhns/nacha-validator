@@ -90,6 +90,7 @@ public enum RecordField {
    * @param recordType The {@link RecordType}.
    * @param startPosition The start position.
    * @param endPosition The end position.
+   * @param required The requirement.
    */
   RecordField(
       final RecordType recordType,
@@ -131,7 +132,7 @@ public enum RecordField {
   }
 
   /**
-   * Gets the requirement.
+   * True if field is either "Mandatory" or "Required".
    *
    * @return The requirement.
    */
