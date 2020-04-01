@@ -65,8 +65,10 @@ public class RecordFieldTest {
         .contains(RecordField.BC_RESERVED)
         .contains(RecordField.BC_ORIGINATING_DFI_ID)
         .contains(RecordField.BC_BATCH_NUMBER);
+  }
 
-  public void getFields_ForEntryDetailAddenda_TexT() {
+  @Test
+  public void getFields_ForEntryDetailAddenda_Test() {
     assertThat(RecordField
         .getFields(RecordType.ENTRY_DETAIL_ADDENDA))
         .isNotNull()
