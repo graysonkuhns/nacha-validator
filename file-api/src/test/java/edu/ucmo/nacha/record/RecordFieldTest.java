@@ -68,7 +68,7 @@ public class RecordFieldTest {
   }
 
   @Test
-  public void getFields_ForEntryDetailAddenda_TexT() {
+  public void getFields_ForEntryDetailAddenda_Test() {
     assertThat(RecordField
         .getFields(RecordType.ENTRY_DETAIL_ADDENDA))
         .isNotNull()
