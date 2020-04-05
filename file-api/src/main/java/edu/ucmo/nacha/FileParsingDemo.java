@@ -6,7 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.ucmo.nacha.file.FileModule;
 import edu.ucmo.nacha.file.FileParser;
-import edu.ucmo.nacha.record.Record;
+import edu.ucmo.nacha.record.IntermediateRecord;
 import edu.ucmo.nacha.record.RecordModule;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class FileParsingDemo {
     FileParser fileParser = injector.getInstance(FileParser.class);
 
     // Parse the records
-    List<Record> records = fileParser
+    List<IntermediateRecord> records = fileParser
         .parse(getClass()
             .getClassLoader()
             .getResourceAsStream("nacha-file-no-error.txt"));

@@ -5,7 +5,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import edu.ucmo.nacha.record.Record;
+import edu.ucmo.nacha.record.IntermediateRecord;
 import edu.ucmo.nacha.record.RecordParser;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -47,13 +47,13 @@ public class DefaultFileParserTest {
   public TemporaryFolder folder = new TemporaryFolder();
 
   // Fixtures
-  private Record recordA;
-  private Record recordB;
-  private Record recordC;
+  private IntermediateRecord recordA;
+  private IntermediateRecord recordB;
+  private IntermediateRecord recordC;
   private RecordParser recordParser;
 
   private List<String> rawRecords;
-  private List<Record> records;
+  private List<IntermediateRecord> records;
 
   private InputStream recordsWithoutEndLineStream;
   private InputStream recordsWithEndLineStream;
@@ -91,9 +91,9 @@ public class DefaultFileParserTest {
   @Before
   public void setUp() throws Exception {
     // Record mocking
-    recordA = mock(Record.class);
-    recordB = mock(Record.class);
-    recordC = mock(Record.class);
+    recordA = mock(IntermediateRecord.class);
+    recordB = mock(IntermediateRecord.class);
+    recordC = mock(IntermediateRecord.class);
 
     recordParser = mock(RecordParser.class);
     doReturn(recordA)
@@ -132,7 +132,7 @@ public class DefaultFileParserTest {
     fileParser = new DefaultFileParser(recordParser);
   }
 
-  private void validateRecords(final List<Record> records) {
+  private void validateRecords(final List<IntermediateRecord> records) {
     assertThat(records)
         .isNotNull()
         .hasSize(3)

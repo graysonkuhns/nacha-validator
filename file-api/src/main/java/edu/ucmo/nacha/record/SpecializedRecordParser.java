@@ -35,13 +35,13 @@ public class SpecializedRecordParser implements RecordParser {
   }
 
   /**
-   * Parses a {@link Record}.
+   * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
-   * @return The {@link Record}.
+   * @return The {@link IntermediateRecord}.
    */
   @Override
-  public Record parse(final String input) {
+  public IntermediateRecord parse(final String input) {
     final Map<RecordField, String> fields = new HashMap<>();
 
     recordFields.forEach(field -> {
@@ -56,6 +56,6 @@ public class SpecializedRecordParser implements RecordParser {
       fields.put(field, fieldData);
     });
 
-    return new DefaultRecord(recordType, fields);
+    return new DefaultIntermediateRecord(recordType, fields);
   }
 }

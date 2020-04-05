@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author Grayson Kuhns
  */
-public class SpecializedRecordParserTest {
+public class SpecializedIntermediateRecordParserTest {
 
   // Constants
   private static final RecordType SUPPORTED_RECORD_TYPE = RecordType.ENTRY_DETAIL;
@@ -24,7 +24,7 @@ public class SpecializedRecordParserTest {
   @Test
   public void parse__ParsesTheRecord__WhenTheRecordIsValidAndSupported__Test() {
     // Parse the record
-    Record record = recordParser.parse(RECORD_VALID);
+    IntermediateRecord record = recordParser.parse(RECORD_VALID);
     assertThat(record).isNotNull();
 
     // Validate the record type

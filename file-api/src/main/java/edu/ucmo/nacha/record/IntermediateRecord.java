@@ -7,7 +7,7 @@ import java.util.Map;
  *
  * @author Grayson Kuhns
  */
-public interface Record {
+public interface IntermediateRecord {
 
   /**
    * Gets the type.

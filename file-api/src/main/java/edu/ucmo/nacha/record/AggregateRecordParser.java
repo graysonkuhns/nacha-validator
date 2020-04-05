@@ -34,13 +34,13 @@ public class AggregateRecordParser implements RecordParser {
   }
 
   /**
-   * Parses a {@link Record}.
+   * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
-   * @return The {@link Record}.
+   * @return The {@link IntermediateRecord}.
    */
   @Override
-  public Record parse(final String input) {
+  public IntermediateRecord parse(final String input) {
     // Ensure the input is the appropriate length
     if (input.length() != RECORD_LENGTH) {
       throw new InvalidRecordException(

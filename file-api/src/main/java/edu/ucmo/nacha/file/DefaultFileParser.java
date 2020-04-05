@@ -1,6 +1,6 @@
 package edu.ucmo.nacha.file;
 
-import edu.ucmo.nacha.record.Record;
+import edu.ucmo.nacha.record.IntermediateRecord;
 import edu.ucmo.nacha.record.RecordParser;
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,10 +39,10 @@ public class DefaultFileParser implements FileParser {
    * Parses raw records from a NACHA file.
    *
    * @param rawRecords The raw records.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    */
   @Override
-  public List<Record> parse(final List<String> rawRecords) {
+  public List<IntermediateRecord> parse(final List<String> rawRecords) {
     return rawRecords
         .stream()
         .map(recordParser::parse)
@@ -57,11 +57,11 @@ public class DefaultFileParser implements FileParser {
    * </p>
    *
    * @param inputStream The {@link InputStream}.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public List<Record> parse(final InputStream inputStream) throws IOException {
+  public List<IntermediateRecord> parse(final InputStream inputStream) throws IOException {
     return parse(new BufferedReader(new InputStreamReader(inputStream)));
   }
 
@@ -69,15 +69,15 @@ public class DefaultFileParser implements FileParser {
    * Parses a NACHA file.
    *
    * @param file The {@link File}.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public List<Record> parse(final File file) throws IOException {
+  public List<IntermediateRecord> parse(final File file) throws IOException {
     return parse(new BufferedReader(new FileReader(file)));
   }
 
-  private List<Record> parse(final BufferedReader reader) throws IOException {
+  private List<IntermediateRecord> parse(final BufferedReader reader) throws IOException {
     final List<String> rawRecords = new ArrayList<>();
 
     // Collect the raw records

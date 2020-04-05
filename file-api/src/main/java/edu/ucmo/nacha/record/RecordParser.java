@@ -8,10 +8,10 @@ package edu.ucmo.nacha.record;
 public interface RecordParser {
 
   /**
-   * Parses a {@link Record}.
+   * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
-   * @return The {@link Record}.
+   * @return The {@link IntermediateRecord}.
    */
-  Record parse(String input);
+  IntermediateRecord parse(String input);
 }

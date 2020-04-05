@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
  *
  * @author Grayson Kuhns
  */
-public class AggregateRecordParserTest {
+public class AggregateIntermediateRecordParserTest {
 
   // Constants
   private static final String RECORD_TOO_SHORT =
@@ -38,7 +38,7 @@ public class AggregateRecordParserTest {
   public ExpectedException thrown = ExpectedException.none();
 
   // Fixtures
-  private Record record;
+  private IntermediateRecord record;
   private SpecializedRecordParser specializedParser;
   private AggregateRecordParser aggregateParser;
 
@@ -83,7 +83,7 @@ public class AggregateRecordParserTest {
   @Before
   public void setUp() {
     // Specialized record parser mocking
-    record = mock(Record.class);
+    record = mock(IntermediateRecord.class);
     specializedParser = mock(SpecializedRecordParser.class);
     doReturn(record)
         .when(specializedParser)

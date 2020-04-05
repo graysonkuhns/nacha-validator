@@ -3,11 +3,11 @@ package edu.ucmo.nacha.record;
 import java.util.Map;
 
 /**
- * Default {@link Record} implementation.
+ * Default {@link IntermediateRecord} implementation.
  *
  * @author Grayson Kuhns
  */
-public class DefaultRecord implements Record {
+public class DefaultIntermediateRecord implements IntermediateRecord {
 
   // Properties
   private final RecordType type;
@@ -19,7 +19,7 @@ public class DefaultRecord implements Record {
    * @param type The {@link RecordType}.
    * @param fields The fields.
    */
-  DefaultRecord(
+  DefaultIntermediateRecord(
       final RecordType type,
       final Map<RecordField, String> fields) {
 
