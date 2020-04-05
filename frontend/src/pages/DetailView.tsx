@@ -21,122 +21,54 @@ const Section: React.FC<{ header: string }> = ({ header, children }) => {
   )
 };
 
-const MessageContentView: React.FC<{ errors: RecordError[] }> = ({ errors }) => {
-  return (
-    <Section header="Message">
-      <div style={{
-        color: 'red',
-        minHeight: '10vh',
-        marginLeft: '5%',
-        marginRight: '5%',
-        display: 'flex',
-        flexDirection: 'row',
-      }}>
-        <div style={{
-          fontSize: '3em',
-          padding: '1%',
-          paddingLeft: '10%',
-          paddingRight: '10%',
-          textAlign: 'center',
-          fontFamily: 'serif',
-        }}>
-          ERROR!
-        </div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          {errors.map((error, index) => (
-            <span key={index}>
-              {error.reason}
-            </span>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-};
+interface DetailViewProps {
+  records: Record[] | null,
+  errors: RecordError[] | null,
+}
 
-const DetailContentView: React.FC<{ errors: RecordError[] }> = ({ errors }) => {
-  const records: Record[] = [
-    {
-      kind: 'FILE HEADER RECORD',
-      count: '1',
-      destination: '101000019',
-      origin: '741258964',
-      originName: 'THE FAB FOUR CORP',
-    },
-    {
-      kind: 'BATCH HEADER RECORD',
-      count: '5',
-      companyName: 'STRAWBERRYFIELDS',
-      companyId: '741258964',
-      effectiveDate: '10/31/2019',
-    },
-    {
-      kind: 'BATCH CONTROL RECORD',
-      count: '8',
-      entryCount: '18',
-      entryHash: '0181800018',
-      debitEntryAmount: '$0.00',
-      creditEntryAmount: '$0.83',
-      companyId: '741258964',
-    },
-    {
-      kind: 'FILE CONTROL RECORD',
-      count: '9',
-      entryCount: '18',
-      entryHash: '0181800018',
-      debitEntryAmount: '$0.00',
-      creditEntryAmount: '$0.83',
-    },
-  ];
-
-  return (
-    <Section header="Company Specification / File Details">
-      {records.map((record, index) => (
-        <RecordView
-          key={index}
-          record={record}
-          errors={errors}
-        />
-      ))}
-    </Section>
-  );
-};
-
-export default function DetailView() {
-  const errors: RecordError[] = [
-    {
-      field: 'debitEntryAmount',
-      reason: 'BATCH CONTROL RECORD (8) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
-      start: 64,
-      length: 10,
-    },
-    {
-      field: 'creditEntryAmount',
-      reason: 'BATCH CONTROL RECORD (8) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
-      start: 74,
-      length: 10,
-    },
-    {
-      field: 'debitEntryAmount',
-      reason: 'FILE CONTROL RECORD (9) TTL Debit Entry $-Amount Does NOT Match Entry Totals',
-      start: 104,
-      length: 10,
-    },
-    {
-      field: 'creditEntryAmount',
-      reason: 'FILE CONTROL RECORD (9) TTL Credit Entry $-Amount Does NOT Match Entry Totals',
-      start: 114,
-      length: 10,
-    },
-  ];
-
+export default function DetailView({ records, errors }: DetailViewProps) {
   return (
     <>
-      <MessageContentView errors={errors} />
-      <DetailContentView errors={errors} />
+      <Section header="Message">
+        <div style={{
+          color: 'red',
+          minHeight: '10vh',
+          marginLeft: '5%',
+          marginRight: '5%',
+          display: 'flex',
+          flexDirection: 'row',
+        }}>
+          <div style={{
+            fontSize: '3em',
+            padding: '1%',
+            paddingLeft: '10%',
+            paddingRight: '10%',
+            textAlign: 'center',
+            fontFamily: 'serif',
+          }}>
+            {errors && 'ERROR!'}
+          </div>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            {(errors || []).map((error, index) => (
+              <span key={index}>
+                {error.reason}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Section>
+      <Section header="Company Specification / File Details">
+        {(records || []).map((record, index) => (
+          <RecordView
+            key={index}
+            record={record}
+            errors={errors || []}
+          />
+        ))}
+      </Section>
     </>
   );
 }
