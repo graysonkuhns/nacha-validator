@@ -56,7 +56,7 @@ interface FileViewProps {
 }
 
 export default function FileView({ onLoad, onClear }: FileViewProps) {
-  const fileUploadRef = useRef<HTMLElement>();
+  const fileUploadRef = useRef<HTMLInputElement>();
   const [content, setContent] = useState<string | null>(null);
 
   const handleFileUpload = (event: any) => {
@@ -65,6 +65,10 @@ export default function FileView({ onLoad, onClear }: FileViewProps) {
       const fileContent = readEvent.target.result;
       setContent(fileContent);
       onLoad(fileContent);
+      if (fileUploadRef.current) {
+        const file = fileUploadRef.current as any;
+        file.value = '';
+      }
     };
     reader.readAsText(event.target.files[0]);
   };
