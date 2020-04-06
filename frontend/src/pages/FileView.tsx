@@ -34,9 +34,11 @@ const FilePreview: React.FC<{content: string | null}> = ({content}) => {
 
   return (
     <textarea
+      value={content}
       rows={30}
       cols={95}
       wrap="hard"
+      readOnly
       style={{
         width: '100%',
         minWidth: '100%',
@@ -44,22 +46,36 @@ const FilePreview: React.FC<{content: string | null}> = ({content}) => {
         fontFamily: '"Courier New", Courier, monospace',
         fontSize: '1.1em',
       }}
-    >
-      {content}
-    </textarea>
+    />
   );
 };
 
-export default function FileView() {
-  const fileUploadRef = useRef<HTMLElement>();
+interface FileViewProps {
+  onLoad: (content: string) => void;
+  onClear: () => void;
+}
+
+export default function FileView({ onLoad, onClear }: FileViewProps) {
+  const fileUploadRef = useRef<HTMLInputElement>();
   const [content, setContent] = useState<string | null>(null);
 
   const handleFileUpload = (event: any) => {
     const reader = new FileReader();
     reader.onload = (readEvent: any) => {
-      setContent(readEvent.target.result);
+      const fileContent = readEvent.target.result;
+      setContent(fileContent);
+      onLoad(fileContent);
+      if (fileUploadRef.current) {
+        const file = fileUploadRef.current as any;
+        file.value = '';
+      }
     };
     reader.readAsText(event.target.files[0]);
+  };
+
+  const handleCancelClicked = () => {
+    setContent(null);
+    onClear();
   };
 
   return (
@@ -83,12 +99,12 @@ export default function FileView() {
               onClick={() => fileUploadRef.current?.click()}
             />
             <GrayButton
-              text="Validate"
-              disabled
-              onClick={() => {}}
+              text="Cancel"
+              disabled={content === null}
+              onClick={handleCancelClicked}
             />
             <GrayButton
-              text="Clear"
+              text="Validate File"
               disabled
               onClick={() => {}}
             />
