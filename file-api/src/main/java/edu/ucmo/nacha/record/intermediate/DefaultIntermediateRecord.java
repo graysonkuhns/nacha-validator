@@ -1,5 +1,7 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
+import edu.ucmo.nacha.record.RecordField;
+import edu.ucmo.nacha.record.RecordType;
 import java.util.Map;
 
 /**

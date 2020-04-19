@@ -1,7 +1,5 @@
-package edu.ucmo.nacha.file;
+package edu.ucmo.nacha.record.intermediate;
 
-import edu.ucmo.nacha.record.IntermediateRecord;
-import edu.ucmo.nacha.record.RecordParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,23 +13,23 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Default {@link FileParser} implementation.
+ * Default {@link IntermediateRecordsParser} implementation.
  *
  * @author Grayson Kuhns
  */
 @Singleton
-public class DefaultFileParser implements FileParser {
+public class DefaultIntermediateRecordsParser implements IntermediateRecordsParser {
 
   // Dependencies
-  private final RecordParser recordParser;
+  private final IntermediateRecordParser recordParser;
 
   /**
    * Constructor.
    *
-   * @param recordParser The {@link RecordParser}.
+   * @param recordParser The {@link IntermediateRecordParser}.
    */
   @Inject
-  DefaultFileParser(final RecordParser recordParser) {
+  DefaultIntermediateRecordsParser(final IntermediateRecordParser recordParser) {
     this.recordParser = recordParser;
   }
 

@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import edu.ucmo.nacha.file.FileModule;
-import edu.ucmo.nacha.file.FileParser;
-import edu.ucmo.nacha.record.IntermediateRecord;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
 import edu.ucmo.nacha.record.RecordModule;
 import java.util.List;
 
@@ -22,12 +21,12 @@ public class FileParsingDemo {
   }
 
   public void run() throws Exception {
-    Injector injector = Guice.createInjector(new RecordModule(), new FileModule());
+    Injector injector = Guice.createInjector(new RecordModule());
     ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-    FileParser fileParser = injector.getInstance(FileParser.class);
+    IntermediateRecordsParser intermediateRecordsParser = injector.getInstance(IntermediateRecordsParser.class);
 
     // Parse the records
-    List<IntermediateRecord> records = fileParser
+    List<IntermediateRecord> records = intermediateRecordsParser
         .parse(getClass()
             .getClassLoader()
             .getResourceAsStream("nacha-file-no-error.txt"));

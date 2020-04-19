@@ -1,11 +1,11 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
 /**
  * Record parser.
  *
  * @author Grayson Kuhns
  */
-public interface RecordParser {
+public interface IntermediateRecordParser {
 
   /**
    * Parses a {@link IntermediateRecord}.

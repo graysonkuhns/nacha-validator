@@ -1,4 +1,4 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;
@@ -6,6 +6,12 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import com.google.common.collect.ImmutableSet;
+import edu.ucmo.nacha.record.InvalidRecordException;
+import edu.ucmo.nacha.record.InvalidRecordTypeException;
+import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
+import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Rule;
@@ -13,7 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * {@link AggregateRecordParser} test case.
+ * {@link AggregateIntermediateRecordParser} test case.
  *
  * @author Grayson Kuhns
  */
@@ -39,8 +45,8 @@ public class AggregateIntermediateRecordParserTest {
 
   // Fixtures
   private IntermediateRecord record;
-  private SpecializedRecordParser specializedParser;
-  private AggregateRecordParser aggregateParser;
+  private SpecializedIntermediateRecordParser specializedParser;
+  private AggregateIntermediateRecordParser aggregateParser;
 
   @Test
   public void parse__ThrowsException__WhenTheRecordIsNotTheCorrectLength__Test() {
@@ -84,7 +90,7 @@ public class AggregateIntermediateRecordParserTest {
   public void setUp() {
     // Specialized record parser mocking
     record = mock(IntermediateRecord.class);
-    specializedParser = mock(SpecializedRecordParser.class);
+    specializedParser = mock(SpecializedIntermediateRecordParser.class);
     doReturn(record)
         .when(specializedParser)
         .parse(eq(RECORD_VALID));
@@ -93,6 +99,6 @@ public class AggregateIntermediateRecordParserTest {
         .getSupportedRecordType();
 
     // Create the aggregate parser
-    aggregateParser = new AggregateRecordParser(ImmutableSet.of(specializedParser));
+    aggregateParser = new AggregateIntermediateRecordParser(ImmutableSet.of(specializedParser));
   }
 }

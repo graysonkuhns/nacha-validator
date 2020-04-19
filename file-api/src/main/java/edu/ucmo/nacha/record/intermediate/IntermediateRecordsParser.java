@@ -1,6 +1,6 @@
-package edu.ucmo.nacha.file;
+package edu.ucmo.nacha.record.intermediate;
 
-import edu.ucmo.nacha.record.IntermediateRecord;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Grayson Kuhns
  */
-public interface FileParser {
+public interface IntermediateRecordsParser {
 
   /**
    * Parses raw records from a NACHA file.

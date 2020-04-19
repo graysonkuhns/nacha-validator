@@ -1,15 +1,17 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
+import edu.ucmo.nacha.record.RecordField;
+import edu.ucmo.nacha.record.RecordType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Specialized {@link RecordParser} for a specific  {@link RecordType}.
+ * Specialized {@link IntermediateRecordParser} for a specific  {@link RecordType}.
  *
  * @author Grayson Kuhns
  */
-public class SpecializedRecordParser implements RecordParser {
+public class SpecializedIntermediateRecordParser implements IntermediateRecordParser {
 
   // Properties
   private final RecordType recordType;
@@ -20,7 +22,7 @@ public class SpecializedRecordParser implements RecordParser {
    *
    * @param recordType The {@link RecordType}.
    */
-  public SpecializedRecordParser(final RecordType recordType) {
+  public SpecializedIntermediateRecordParser(final RecordType recordType) {
     this.recordType = recordType;
     this.recordFields = RecordField.getFields(recordType);
   }

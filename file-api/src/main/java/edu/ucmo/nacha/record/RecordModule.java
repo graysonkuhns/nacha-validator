@@ -3,6 +3,11 @@ package edu.ucmo.nacha.record;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
+import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
+import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
+import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 
 /**
  * Record module.
@@ -17,23 +22,19 @@ public class RecordModule extends AbstractModule {
   @Override
   protected void configure() {
     // Specialized record parsers
-    Multibinder<SpecializedRecordParser> recordParsersMultibinder =
-        Multibinder.newSetBinder(binder(), SpecializedRecordParser.class);
+    Multibinder<SpecializedIntermediateRecordParser> recordParsersMultibinder =
+        Multibinder.newSetBinder(binder(), SpecializedIntermediateRecordParser.class);
 
     ImmutableSet
-        .of(
-            RecordType.FILE_HEADER,
-            RecordType.ENTRY_DETAIL,
-            RecordType.BATCH_CONTROL,
-            RecordType.ENTRY_DETAIL_ADDENDA,
-            RecordType.FILE_CONTROL,
-            RecordType.BATCH_HEADER
-        )
+        .copyOf(RecordType.values())
         .forEach(recordType -> recordParsersMultibinder
             .addBinding()
-            .toInstance(new SpecializedRecordParser(recordType)));
+            .toInstance(new SpecializedIntermediateRecordParser(recordType)));
 
     // Aggregate record parser
-    bind(RecordParser.class).to(AggregateRecordParser.class);
+    bind(IntermediateRecordParser.class).to(AggregateIntermediateRecordParser.class);
+
+    // Multi-records parser
+    bind(IntermediateRecordsParser.class).to(DefaultIntermediateRecordsParser.class);
   }
 }
