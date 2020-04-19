@@ -4,7 +4,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
 import edu.ucmo.nacha.record.finalform.AggregateRecordParser;
+import edu.ucmo.nacha.record.finalform.DefaultRecordsParser;
 import edu.ucmo.nacha.record.finalform.RecordParser;
+import edu.ucmo.nacha.record.finalform.RecordsParser;
 import edu.ucmo.nacha.record.finalform.SpecializedRecordParser;
 import edu.ucmo.nacha.record.finalform.entrydetail.DefaultEntryDetail;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetail;
@@ -67,5 +69,8 @@ public class RecordModule extends AbstractModule {
 
     // Aggregate record parser
     bind(RecordParser.class).to(AggregateRecordParser.class);
+
+    // Multi parser
+    bind(RecordsParser.class).to(DefaultRecordsParser.class);
   }
 }
