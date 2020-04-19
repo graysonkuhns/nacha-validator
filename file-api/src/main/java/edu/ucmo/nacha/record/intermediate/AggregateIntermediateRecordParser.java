@@ -40,7 +40,7 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
    * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
-   * @return The {@link IntermediateRecord}.
+   * @return The {@link IntermediateRecord} or null if the input is padding.
    */
   @Override
   public IntermediateRecord parse(final String input) {
@@ -49,6 +49,11 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
       throw new InvalidRecordException(
           input,
           String.format("Records are expected to be %d characters long", RECORD_LENGTH));
+    }
+
+    // Check if the input is padding
+    if (isPadding(input)) {
+      return null;
     }
 
     // Determine the record type
@@ -68,5 +73,17 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
 
     // Parse the record
     return parser.parse(input);
+  }
+
+  private boolean isPadding(final String input) {
+    int nine_count = 0;
+
+    for (char ch : input.toCharArray()) {
+      if (ch == '9') {
+        nine_count++;
+      }
+    }
+
+    return nine_count == RECORD_LENGTH;
   }
 }

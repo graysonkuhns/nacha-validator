@@ -35,6 +35,8 @@ public class AggregateIntermediateRecordParserTest {
       "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
   private static final String RECORD_UNSUPPORTED_TYPE =
       "9bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+  private static final String RECORD_PADDING =
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
 
   private static final String RECORD_VALID =
       "632101000019123456789011121310000000002               MUSTARD MISTER M      DD0101000010000002";
@@ -84,6 +86,13 @@ public class AggregateIntermediateRecordParserTest {
         .parse(RECORD_VALID))
         .isNotNull()
         .isEqualTo(record);
+  }
+
+  @Test
+  public void parse__ReturnsNull__WhenTheRecordIsPadding__Test() {
+    assertThat(aggregateParser
+        .parse(RECORD_PADDING))
+        .isNull();
   }
 
   @Before

@@ -5,10 +5,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
-import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
-import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
-import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -36,12 +32,16 @@ public class DefaultIntermediateRecordsParserTest {
       "622101000019111111           00000000010200           JONES DESMOND           0101000010000001";
   private static final String RECORD_C =
       "6321010000191234567890111213100000000021300           MUSTARD MISTER M        0101000010000002";
+  private static final String RECORD_PADDING =
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
   private static final String RECORDS_WITHOUT_END_LINE =
       RECORD_A
           .concat("\n")
           .concat(RECORD_B)
           .concat("\n")
-          .concat(RECORD_C);
+          .concat(RECORD_C)
+          .concat("\n")
+          .concat(RECORD_PADDING);
   private static final String RECORDS_WITH_END_LINE = RECORDS_WITHOUT_END_LINE.concat("\n");
 
   // Rules
@@ -107,6 +107,9 @@ public class DefaultIntermediateRecordsParserTest {
     doReturn(recordC)
         .when(recordParser)
         .parse(eq(RECORD_C));
+    doReturn(null)
+        .when(recordParser)
+        .parse(eq(RECORD_PADDING));
 
     // Aggregate records
     rawRecords = new ArrayList<>();
