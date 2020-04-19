@@ -3,9 +3,13 @@ package edu.ucmo.nacha.record;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
+import edu.ucmo.nacha.record.finalform.AggregateRecordParser;
+import edu.ucmo.nacha.record.finalform.RecordParser;
+import edu.ucmo.nacha.record.finalform.SpecializedRecordParser;
 import edu.ucmo.nacha.record.finalform.entrydetail.DefaultEntryDetail;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetail;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetailFactory;
+import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetailParser;
 import edu.ucmo.nacha.record.finalform.field.DefaultFieldParser;
 import edu.ucmo.nacha.record.finalform.field.FieldParser;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
@@ -54,5 +58,14 @@ public class RecordModule extends AbstractModule {
     install(new FactoryModuleBuilder()
         .implement(EntryDetail.class, DefaultEntryDetail.class)
         .build(EntryDetailFactory.class));
+
+    // Specialized record parsers
+    Multibinder<SpecializedRecordParser> recordParsersMultibinder =
+        Multibinder.newSetBinder(binder(), SpecializedRecordParser.class);
+
+    recordParsersMultibinder.addBinding().to(EntryDetailParser.class);
+
+    // Aggregate record parser
+    bind(RecordParser.class).to(AggregateRecordParser.class);
   }
 }

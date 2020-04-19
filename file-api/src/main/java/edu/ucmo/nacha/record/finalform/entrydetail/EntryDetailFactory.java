@@ -27,7 +27,7 @@ public interface EntryDetailFactory {
   EntryDetail create(
       @Assisted("transactionType") int transactionType,
       @Assisted("receiverRoutingNumber") long receiverRoutingNumber,
-      @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
+      @Assisted("receiverRoutingNumberCheckDigit") int receiverRoutingNumberCheckDigit,
       @Assisted("receiverAccountNumber") String receiverAccountNumber,
       @Assisted("transactionAmount") double transactionAmount,
       @Assisted("receiverIdNumber") String receiverIdNumber,

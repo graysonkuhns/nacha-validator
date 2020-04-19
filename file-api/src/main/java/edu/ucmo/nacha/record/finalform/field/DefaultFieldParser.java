@@ -2,7 +2,14 @@ package edu.ucmo.nacha.record.finalform.field;
 
 import edu.ucmo.nacha.record.RecordField;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
+import javax.inject.Singleton;
 
+/**
+ * Default {@link FieldParser} implementation.
+ *
+ * @author Grayson Kuhns
+ */
+@Singleton
 public class DefaultFieldParser implements FieldParser {
 
   /**
