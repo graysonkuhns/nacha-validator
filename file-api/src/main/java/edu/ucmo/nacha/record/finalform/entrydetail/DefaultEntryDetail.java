@@ -1,7 +1,7 @@
-package edu.ucmo.nacha.file.entrydetail;
+package edu.ucmo.nacha.record.finalform.entrydetail;
 
 import com.google.inject.assistedinject.Assisted;
-import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
+import edu.ucmo.nacha.record.RecordType;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 public class DefaultEntryDetail implements EntryDetail {
 
   // Properties
-  private final TransactionType transactionType;
+  private final int transactionType;
   private final long receiverRoutingNumber;
   private final int receiverRoutingNumberCheckDigit;
   private final String receiverAccountNumber;
@@ -28,7 +28,7 @@ public class DefaultEntryDetail implements EntryDetail {
   /**
    * Constructor.
    *
-   * @param transactionType The {@link TransactionType}.
+   * @param transactionType The transaction type code.
    * @param receiverRoutingNumber The routing number of the receiving institution.
    * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
    * @param receiverAccountNumber The account number of the receiving institution.
@@ -41,7 +41,7 @@ public class DefaultEntryDetail implements EntryDetail {
    */
   @Inject
   DefaultEntryDetail(
-      @Assisted("transactionType") final TransactionType transactionType,
+      @Assisted("transactionType") final int transactionType,
       @Assisted("receiverRoutingNumber") final long receiverRoutingNumber,
       @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
       @Assisted("receiverAccountNumber") final String receiverAccountNumber,
@@ -65,12 +65,22 @@ public class DefaultEntryDetail implements EntryDetail {
   }
 
   /**
-   * Gets the {@link TransactionType}.
+   * Gets the type.
    *
-   * @return The {@link TransactionType}.
+   * @return The type.
    */
   @Override
-  public TransactionType getTransactionType() {
+  public RecordType getType() {
+    return RecordType.ENTRY_DETAIL;
+  }
+
+  /**
+   * Gets the transaction type code.
+   *
+   * @return The transaction type code.
+   */
+  @Override
+  public int getTransactionType() {
     return transactionType;
   }
 
