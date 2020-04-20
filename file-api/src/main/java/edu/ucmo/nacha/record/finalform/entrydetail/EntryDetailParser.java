@@ -59,7 +59,7 @@ public class EntryDetailParser implements SpecializedRecordParser<EntryDetail> {
     long receiverRoutingNumber = fieldParser.getLong(record, RecordField.ED_RECEIVER_ROUTING_NUMBER);
     int receiverRoutingNumberCheckDigit = fieldParser.getInt(record, RecordField.ED_RECEIVER_ROUTING_NUMBER_CHECK_DIGIT);
     String receiverAccountNumber = fieldParser.getString(record, RecordField.ED_RECEIVER_ACCOUNT_NUMBER);
-    double transactionAmount = 0;
+    double transactionAmount = fieldParser.getCurrency(record, RecordField.ED_TRANSACTION_AMOUNT);
     String receiverIdNumber = fieldParser.getStringOrNull(record, RecordField.ED_RECEIVER_ID_NUMBER);
     String receiverName = fieldParser.getString(record, RecordField.ED_RECEIVER_NAME);
     String discretionaryData = fieldParser.getStringOrNull(record, RecordField.ED_DISCRETIONARY_DATA);

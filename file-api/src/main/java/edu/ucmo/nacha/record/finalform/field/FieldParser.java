@@ -63,4 +63,13 @@ public interface FieldParser {
    * @return The field data.
    */
   boolean getBoolean(IntermediateRecord record, RecordField field);
+
+  /**
+   * Gets a currency field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  double getCurrency(IntermediateRecord record, RecordField field);
 }

@@ -137,4 +137,48 @@ public class DefaultFieldParser implements FieldParser {
         throw new FieldParseException(field, "Expected field to contain boolean value");
     }
   }
+
+  /**
+   * Gets a currency field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  @Override
+  public double getCurrency(final IntermediateRecord record, final RecordField field) {
+    // Get the field data
+    final String data = getString(record, field);
+
+    // There must be more than 2 characters
+    if (data.length() < 2) {
+      throw new FieldParseException(field, "Expected more than 2 characters");
+    }
+
+    // Extract the currency component values
+    final String dollarString;
+    final String centsString;
+
+    if (data.length() == 2) {
+      dollarString = "0";
+      centsString = data;
+    } else {
+      final int centStart = data.length() - 2;
+      dollarString = data.substring(0, centStart);
+      centsString = data.substring(centStart);
+    }
+
+    // Parse the current component values
+    final double dollars;
+    final double cents;
+    try {
+      dollars = Double.parseDouble(dollarString);
+      cents = Double.parseDouble(centsString) / 100;
+    } catch (NumberFormatException ex) {
+      throw new FieldParseException(field, ex);
+    }
+
+    // Calculate the sum
+    return (dollars + cents);
+  }
 }
