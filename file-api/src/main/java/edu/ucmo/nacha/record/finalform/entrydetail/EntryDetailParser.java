@@ -54,18 +54,19 @@ public class EntryDetailParser implements SpecializedRecordParser<EntryDetail> {
    */
   @Override
   public EntryDetail parse(final IntermediateRecord record) {
-
-    int transactionType = 0;
-    long receiverRoutingNumber = 0;
-    int receiverRoutingNumberCheckDigit = 0;
+    // Parse fields
+    int transactionType = fieldParser.getInt(record, RecordField.ED_TRANSACTION_TYPE);
+    long receiverRoutingNumber = fieldParser.getLong(record, RecordField.ED_RECEIVER_ROUTING_NUMBER);
+    int receiverRoutingNumberCheckDigit = fieldParser.getInt(record, RecordField.ED_RECEIVER_ROUTING_NUMBER_CHECK_DIGIT);
     String receiverAccountNumber = fieldParser.getString(record, RecordField.ED_RECEIVER_ACCOUNT_NUMBER);
     double transactionAmount = 0;
     String receiverIdNumber = fieldParser.getStringOrNull(record, RecordField.ED_RECEIVER_ID_NUMBER);
     String receiverName = fieldParser.getString(record, RecordField.ED_RECEIVER_NAME);
     String discretionaryData = fieldParser.getStringOrNull(record, RecordField.ED_DISCRETIONARY_DATA);
-    boolean hasAddenda = false;
-    long traceNumber = 0;
+    boolean hasAddenda = fieldParser.getBoolean(record, RecordField.ED_HAS_ADDENDA);
+    long traceNumber = fieldParser.getLong(record, RecordField.ED_TRACE_NUMBER);
 
+    // Create the record
     return entryDetailFactory.create(
         transactionType,
         receiverRoutingNumber,
