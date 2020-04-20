@@ -54,4 +54,64 @@ public class DefaultFieldParser implements FieldParser {
 
     return data;
   }
+
+  /**
+   * Gets a int field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  @Override
+  public int getInt(final IntermediateRecord record, final RecordField field) {
+    // Get the field data
+    final String data = getString(record, field);
+
+    // Convert to number
+    try {
+      return Integer.parseInt(data);
+    } catch (NumberFormatException ex) {
+      throw new FieldParseException(field, ex);
+    }
+  }
+
+  /**
+   * Gets a long field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  @Override
+  public long getLong(final IntermediateRecord record, final RecordField field) {
+    // Get the field data
+    final String data = getString(record, field);
+
+    // Convert to number
+    try {
+      return Long.parseLong(data);
+    } catch (NumberFormatException ex) {
+      throw new FieldParseException(field, ex);
+    }
+  }
+
+  /**
+   * Gets a double field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  @Override
+  public double getDouble(final IntermediateRecord record, final RecordField field) {
+    // Get the field data
+    final String data = getString(record, field);
+
+    // Convert to number
+    try {
+      return Double.parseDouble(data);
+    } catch (NumberFormatException ex) {
+      throw new FieldParseException(field, ex);
+    }
+  }
 }
