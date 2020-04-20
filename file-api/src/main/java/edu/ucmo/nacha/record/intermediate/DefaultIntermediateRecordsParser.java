@@ -1,7 +1,5 @@
-package edu.ucmo.nacha.file;
+package edu.ucmo.nacha.record.intermediate;
 
-import edu.ucmo.nacha.record.Record;
-import edu.ucmo.nacha.record.RecordParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,28 +8,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Default {@link FileParser} implementation.
+ * Default {@link IntermediateRecordsParser} implementation.
  *
  * @author Grayson Kuhns
  */
 @Singleton
-public class DefaultFileParser implements FileParser {
+public class DefaultIntermediateRecordsParser implements IntermediateRecordsParser {
 
   // Dependencies
-  private final RecordParser recordParser;
+  private final IntermediateRecordParser recordParser;
 
   /**
    * Constructor.
    *
-   * @param recordParser The {@link RecordParser}.
+   * @param recordParser The {@link IntermediateRecordParser}.
    */
   @Inject
-  DefaultFileParser(final RecordParser recordParser) {
+  DefaultIntermediateRecordsParser(final IntermediateRecordParser recordParser) {
     this.recordParser = recordParser;
   }
 
@@ -39,13 +38,14 @@ public class DefaultFileParser implements FileParser {
    * Parses raw records from a NACHA file.
    *
    * @param rawRecords The raw records.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    */
   @Override
-  public List<Record> parse(final List<String> rawRecords) {
+  public List<IntermediateRecord> parse(final List<String> rawRecords) {
     return rawRecords
         .stream()
         .map(recordParser::parse)
+        .filter(Objects::nonNull)
         .collect(Collectors.toList());
   }
 
@@ -57,11 +57,11 @@ public class DefaultFileParser implements FileParser {
    * </p>
    *
    * @param inputStream The {@link InputStream}.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public List<Record> parse(final InputStream inputStream) throws IOException {
+  public List<IntermediateRecord> parse(final InputStream inputStream) throws IOException {
     return parse(new BufferedReader(new InputStreamReader(inputStream)));
   }
 
@@ -69,15 +69,15 @@ public class DefaultFileParser implements FileParser {
    * Parses a NACHA file.
    *
    * @param file The {@link File}.
-   * @return The {@link Record}s.
+   * @return The {@link IntermediateRecord}s.
    * @throws IOException If an I/O error occurs.
    */
   @Override
-  public List<Record> parse(final File file) throws IOException {
+  public List<IntermediateRecord> parse(final File file) throws IOException {
     return parse(new BufferedReader(new FileReader(file)));
   }
 
-  private List<Record> parse(final BufferedReader reader) throws IOException {
+  private List<IntermediateRecord> parse(final BufferedReader reader) throws IOException {
     final List<String> rawRecords = new ArrayList<>();
 
     // Collect the raw records

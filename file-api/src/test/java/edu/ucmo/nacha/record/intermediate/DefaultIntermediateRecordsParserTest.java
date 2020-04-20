@@ -1,12 +1,10 @@
-package edu.ucmo.nacha.file;
+package edu.ucmo.nacha.record.intermediate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-import edu.ucmo.nacha.record.Record;
-import edu.ucmo.nacha.record.RecordParser;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -21,11 +19,11 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 /**
- * {@link DefaultFileParser} test case.
+ * {@link DefaultIntermediateRecordsParser} test case.
  *
  * @author Grayson Kuhns
  */
-public class DefaultFileParserTest {
+public class DefaultIntermediateRecordsParserTest {
 
   // Constants
   private static final String RECORD_A =
@@ -34,12 +32,16 @@ public class DefaultFileParserTest {
       "622101000019111111           00000000010200           JONES DESMOND           0101000010000001";
   private static final String RECORD_C =
       "6321010000191234567890111213100000000021300           MUSTARD MISTER M        0101000010000002";
+  private static final String RECORD_PADDING =
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
   private static final String RECORDS_WITHOUT_END_LINE =
       RECORD_A
           .concat("\n")
           .concat(RECORD_B)
           .concat("\n")
-          .concat(RECORD_C);
+          .concat(RECORD_C)
+          .concat("\n")
+          .concat(RECORD_PADDING);
   private static final String RECORDS_WITH_END_LINE = RECORDS_WITHOUT_END_LINE.concat("\n");
 
   // Rules
@@ -47,13 +49,13 @@ public class DefaultFileParserTest {
   public TemporaryFolder folder = new TemporaryFolder();
 
   // Fixtures
-  private Record recordA;
-  private Record recordB;
-  private Record recordC;
-  private RecordParser recordParser;
+  private IntermediateRecord recordA;
+  private IntermediateRecord recordB;
+  private IntermediateRecord recordC;
+  private IntermediateRecordParser recordParser;
 
   private List<String> rawRecords;
-  private List<Record> records;
+  private List<IntermediateRecord> records;
 
   private InputStream recordsWithoutEndLineStream;
   private InputStream recordsWithEndLineStream;
@@ -61,41 +63,41 @@ public class DefaultFileParserTest {
   private File recordsWithoutEndLineFile;
   private File recordsWithEndLineFile;
 
-  private FileParser fileParser;
+  private IntermediateRecordsParser intermediateRecordsParser;
 
   @Test
   public void recordsAreParsedCorrectly__FromList__Test() {
-    validateRecords(fileParser.parse(rawRecords));
+    validateRecords(intermediateRecordsParser.parse(rawRecords));
   }
 
   @Test
   public void recordsAreParsedCorrectly__WithoutEndLine__FromInputStream__Test() throws Exception {
-    validateRecords(fileParser.parse(recordsWithoutEndLineStream));
+    validateRecords(intermediateRecordsParser.parse(recordsWithoutEndLineStream));
   }
 
   @Test
   public void recordsAreParsedCorrectly__WithEndLine__FromInputStream__Test() throws Exception {
-    validateRecords(fileParser.parse(recordsWithEndLineStream));
+    validateRecords(intermediateRecordsParser.parse(recordsWithEndLineStream));
   }
 
   @Test
   public void recordsAreParsedCorrectly__WithoutEndLine__FromFile__Test() throws Exception {
-    validateRecords(fileParser.parse(recordsWithoutEndLineFile));
+    validateRecords(intermediateRecordsParser.parse(recordsWithoutEndLineFile));
   }
 
   @Test
   public void recordsAreParsedCorrectly__WithEndLine__FromFile__Test() throws Exception {
-    validateRecords(fileParser.parse(recordsWithEndLineFile));
+    validateRecords(intermediateRecordsParser.parse(recordsWithEndLineFile));
   }
 
   @Before
   public void setUp() throws Exception {
     // Record mocking
-    recordA = mock(Record.class);
-    recordB = mock(Record.class);
-    recordC = mock(Record.class);
+    recordA = mock(IntermediateRecord.class);
+    recordB = mock(IntermediateRecord.class);
+    recordC = mock(IntermediateRecord.class);
 
-    recordParser = mock(RecordParser.class);
+    recordParser = mock(IntermediateRecordParser.class);
     doReturn(recordA)
         .when(recordParser)
         .parse(eq(RECORD_A));
@@ -105,6 +107,9 @@ public class DefaultFileParserTest {
     doReturn(recordC)
         .when(recordParser)
         .parse(eq(RECORD_C));
+    doReturn(null)
+        .when(recordParser)
+        .parse(eq(RECORD_PADDING));
 
     // Aggregate records
     rawRecords = new ArrayList<>();
@@ -129,10 +134,10 @@ public class DefaultFileParserTest {
     write(recordsWithEndLineFile, RECORDS_WITH_END_LINE);
 
     // Create the file parser
-    fileParser = new DefaultFileParser(recordParser);
+    intermediateRecordsParser = new DefaultIntermediateRecordsParser(recordParser);
   }
 
-  private void validateRecords(final List<Record> records) {
+  private void validateRecords(final List<IntermediateRecord> records) {
     assertThat(records)
         .isNotNull()
         .hasSize(3)

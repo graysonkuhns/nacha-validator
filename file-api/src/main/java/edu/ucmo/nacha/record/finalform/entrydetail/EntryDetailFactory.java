@@ -1,7 +1,6 @@
-package edu.ucmo.nacha.file.entrydetail;
+package edu.ucmo.nacha.record.finalform.entrydetail;
 
 import com.google.inject.assistedinject.Assisted;
-import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
 
 /**
  * {@link EntryDetail} factory.
@@ -13,7 +12,7 @@ public interface EntryDetailFactory {
   /**
    * Creates an {@link EntryDetail}.
    *
-   * @param transactionType The {@link TransactionType}.
+   * @param transactionType The transaction type code.
    * @param receiverRoutingNumber The routing number of the receiving institution.
    * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
    * @param receiverAccountNumber The account number of the receiving institution.
@@ -26,9 +25,9 @@ public interface EntryDetailFactory {
    * @return The {@link EntryDetail}.
    */
   EntryDetail create(
-      @Assisted("transactionType") TransactionType transactionType,
+      @Assisted("transactionType") int transactionType,
       @Assisted("receiverRoutingNumber") long receiverRoutingNumber,
-      @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
+      @Assisted("receiverRoutingNumberCheckDigit") int receiverRoutingNumberCheckDigit,
       @Assisted("receiverAccountNumber") String receiverAccountNumber,
       @Assisted("transactionAmount") double transactionAmount,
       @Assisted("receiverIdNumber") String receiverIdNumber,

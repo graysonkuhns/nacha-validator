@@ -2,16 +2,18 @@ package edu.ucmo.nacha.record;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
+import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * {@link SpecializedRecordParser} test case.
+ * {@link SpecializedIntermediateRecordParser} test case.
  *
  * @author Grayson Kuhns
  */
-public class SpecializedRecordParserTest {
+public class SpecializedIntermediateRecordParserTest {
 
   // Constants
   private static final RecordType SUPPORTED_RECORD_TYPE = RecordType.ENTRY_DETAIL;
@@ -19,12 +21,12 @@ public class SpecializedRecordParserTest {
       "6321010000191234567890111213100000000021300           MUSTARD MISTER M      DD0101000010000002";
 
   // Fixtures
-  private SpecializedRecordParser recordParser;
+  private SpecializedIntermediateRecordParser recordParser;
 
   @Test
   public void parse__ParsesTheRecord__WhenTheRecordIsValidAndSupported__Test() {
     // Parse the record
-    Record record = recordParser.parse(RECORD_VALID);
+    IntermediateRecord record = recordParser.parse(RECORD_VALID);
     assertThat(record).isNotNull();
 
     // Validate the record type
@@ -100,6 +102,6 @@ public class SpecializedRecordParserTest {
 
   @Before
   public void setUp() {
-    recordParser = new SpecializedRecordParser(SUPPORTED_RECORD_TYPE);
+    recordParser = new SpecializedIntermediateRecordParser(SUPPORTED_RECORD_TYPE);
   }
 }

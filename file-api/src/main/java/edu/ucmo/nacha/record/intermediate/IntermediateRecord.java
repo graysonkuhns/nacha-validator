@@ -1,5 +1,7 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
+import edu.ucmo.nacha.record.RecordField;
+import edu.ucmo.nacha.record.RecordType;
 import java.util.Map;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Map;
  *
  * @author Grayson Kuhns
  */
-public interface Record {
+public interface IntermediateRecord {
 
   /**
    * Gets the type.

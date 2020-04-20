@@ -1,6 +1,6 @@
-package edu.ucmo.nacha.file.entrydetail;
+package edu.ucmo.nacha.record.finalform.entrydetail;
 
-import edu.ucmo.nacha.file.entrydetail.transactiontype.TransactionType;
+import edu.ucmo.nacha.record.finalform.Record;
 import java.util.Optional;
 
 /**
@@ -8,14 +8,14 @@ import java.util.Optional;
  *
  * @author Grayson Kuhns
  */
-public interface EntryDetail {
+public interface EntryDetail extends Record {
 
   /**
-   * Gets the {@link TransactionType}.
+   * Gets the transaction type code.
    *
-   * @return The {@link TransactionType}.
+   * @return The transaction type code.
    */
-  TransactionType getTransactionType();
+  int getTransactionType();
 
   /**
    * Gets the routing number of the receiving institution.

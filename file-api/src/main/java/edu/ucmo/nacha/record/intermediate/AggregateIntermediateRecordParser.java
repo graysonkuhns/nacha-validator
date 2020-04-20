@@ -1,5 +1,8 @@
-package edu.ucmo.nacha.record;
+package edu.ucmo.nacha.record.intermediate;
 
+import edu.ucmo.nacha.record.InvalidRecordException;
+import edu.ucmo.nacha.record.InvalidRecordTypeException;
+import edu.ucmo.nacha.record.RecordType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -7,26 +10,26 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Aggregate {@link RecordParser}.
+ * Aggregate {@link IntermediateRecordParser}.
  *
  * @author Grayson Kuhns
  */
 @Singleton
-public class AggregateRecordParser implements RecordParser {
+public class AggregateIntermediateRecordParser implements IntermediateRecordParser {
 
   // Constants
   private static final int RECORD_LENGTH = 94;
 
   // Dependencies
-  private final Map<RecordType, RecordParser> parsers;
+  private final Map<RecordType, IntermediateRecordParser> parsers;
 
   /**
    * Constructor.
    *
-   * @param parsers The {@link SpecializedRecordParser}s to delegate to.
+   * @param parsers The {@link SpecializedIntermediateRecordParser}s to delegate to.
    */
   @Inject
-  AggregateRecordParser(final Set<SpecializedRecordParser> parsers) {
+  AggregateIntermediateRecordParser(final Set<SpecializedIntermediateRecordParser> parsers) {
     // Index the parsers by their supported record type
     this.parsers = new HashMap<>();
     parsers.forEach(parser ->
@@ -34,18 +37,23 @@ public class AggregateRecordParser implements RecordParser {
   }
 
   /**
-   * Parses a {@link Record}.
+   * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
-   * @return The {@link Record}.
+   * @return The {@link IntermediateRecord} or null if the input is padding.
    */
   @Override
-  public Record parse(final String input) {
+  public IntermediateRecord parse(final String input) {
     // Ensure the input is the appropriate length
     if (input.length() != RECORD_LENGTH) {
       throw new InvalidRecordException(
           input,
           String.format("Records are expected to be %d characters long", RECORD_LENGTH));
+    }
+
+    // Check if the input is padding
+    if (isPadding(input)) {
+      return null;
     }
 
     // Determine the record type
@@ -57,7 +65,7 @@ public class AggregateRecordParser implements RecordParser {
     }
 
     // Get the appropriate record parser
-    final RecordParser parser = parsers.get(recordType);
+    final IntermediateRecordParser parser = parsers.get(recordType);
     if (parser == null) {
       throw new UnsupportedOperationException(
           String.format("Parsing records of type \"%s\" is not currently supported", recordType.toString()));
@@ -65,5 +73,17 @@ public class AggregateRecordParser implements RecordParser {
 
     // Parse the record
     return parser.parse(input);
+  }
+
+  private boolean isPadding(final String input) {
+    int nine_count = 0;
+
+    for (char ch : input.toCharArray()) {
+      if (ch == '9') {
+        nine_count++;
+      }
+    }
+
+    return nine_count == RECORD_LENGTH;
   }
 }
