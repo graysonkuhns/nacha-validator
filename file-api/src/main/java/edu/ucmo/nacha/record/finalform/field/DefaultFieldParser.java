@@ -114,4 +114,27 @@ public class DefaultFieldParser implements FieldParser {
       throw new FieldParseException(field, ex);
     }
   }
+
+  /**
+   * Gets a boolean field.
+   *
+   * @param record The {@link IntermediateRecord}.
+   * @param field The {@link RecordField}.
+   * @return The field data.
+   */
+  @Override
+  public boolean getBoolean(final IntermediateRecord record, final RecordField field) {
+    // Get the field data
+    final int data = getInt(record, field);
+
+    // Convert to boolean
+    switch (data) {
+      case 0:
+        return false;
+      case 1:
+        return true;
+      default:
+        throw new FieldParseException(field, "Expected field to contain boolean value");
+    }
+  }
 }
