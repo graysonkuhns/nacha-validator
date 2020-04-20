@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Grid } from '@material-ui/core';
+import axios from 'axios';
 
 interface GrayButtonProps {
   onClick: () => void;
@@ -58,6 +59,7 @@ interface FileViewProps {
 export default function FileView({ onLoad, onClear }: FileViewProps) {
   const fileUploadRef = useRef<HTMLInputElement>();
   const [content, setContent] = useState<string | null>(null);
+  const [validated, setValidated] = useState<boolean>(false);
 
   const handleFileUpload = (event: any) => {
     const reader = new FileReader();
@@ -74,9 +76,33 @@ export default function FileView({ onLoad, onClear }: FileViewProps) {
   };
 
   const handleCancelClicked = () => {
+    setValidated(false);
     setContent(null);
     onClear();
   };
+
+  const handleValidateClicked =() => {
+    if (!content) return;
+    const records = content
+      .split('\n')
+      .filter(line => line.trim().length > 0);
+
+    axios({
+      method: 'post',
+      url: '/api/validate',
+      data: { records },
+    }).then((response) => {
+      // TODO: Handle validation response
+      console.log(response);
+      setValidated(true);
+
+    }).catch((err) => {
+      // TODO: Handle failed validation request
+      alert(`Failed to send records to validation server: ${err}`);
+      console.error('Records:', records);
+    });
+  };
+
 
   return (
     <div style={{ border: '1px solid grey', minWidth: '90%', }}>
@@ -105,8 +131,8 @@ export default function FileView({ onLoad, onClear }: FileViewProps) {
             />
             <GrayButton
               text="Validate File"
-              disabled
-              onClick={() => {}}
+              disabled={!(!validated && content !== null)}
+              onClick={handleValidateClicked}
             />
           </Grid>
         </Grid>
