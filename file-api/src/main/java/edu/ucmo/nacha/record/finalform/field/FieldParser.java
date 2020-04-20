@@ -15,18 +15,18 @@ public interface FieldParser {
    *
    * @param record The {@link IntermediateRecord}.
    * @param field The {@link RecordField}.
-   * @return The field data.
+   * @return The field data or null if the field is empty.
    */
-  String getString(IntermediateRecord record, RecordField field);
+  String getStringOrNull(IntermediateRecord record, RecordField field);
 
   /**
    * Gets a {@link String} field.
    *
    * @param record The {@link IntermediateRecord}.
    * @param field The {@link RecordField}.
-   * @return The field data or null if the field is empty.
+   * @return The field data.
    */
-  String getStringOrNull(IntermediateRecord record, RecordField field);
+  String getString(IntermediateRecord record, RecordField field);
 
   /**
    * Gets a int field.
