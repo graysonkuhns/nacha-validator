@@ -61,8 +61,8 @@ public class BatchControlParser implements SpecializedRecordParser<BatchControl>
     double debitAmount = fieldParser.getDouble(record, RecordField.BC_DEBIT_AMOUNT);
     double creditAmount = fieldParser.getDouble(record, RecordField.BC_CREDIT_AMOUNT);
     String companyIdentification = fieldParser.getString(record, RecordField.BC_COMPANY_IDENTIFICATION);
-    String messageAuthentication = fieldParser.getString(record, RecordField.BC_MESSAGE_AUTHENTICATION_CODE);
-    String reserved = fieldParser.getString(record, RecordField.BC_RESERVED);
+    String messageAuthentication = fieldParser.getStringOrNull(record, RecordField.BC_MESSAGE_AUTHENTICATION_CODE);
+    String reserved = fieldParser.getStringOrNull(record, RecordField.BC_RESERVED);
     String originatingDfiId = fieldParser.getString(record, RecordField.BC_ORIGINATING_DFI_ID);
     long batchNumber = fieldParser.getLong(record, RecordField.BC_BATCH_NUMBER);
 
