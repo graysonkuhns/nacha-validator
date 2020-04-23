@@ -8,6 +8,10 @@ import edu.ucmo.nacha.record.finalform.DefaultRecordsParser;
 import edu.ucmo.nacha.record.finalform.RecordParser;
 import edu.ucmo.nacha.record.finalform.RecordsParser;
 import edu.ucmo.nacha.record.finalform.SpecializedRecordParser;
+import edu.ucmo.nacha.record.finalform.batchcontrol.BatchControl;
+import edu.ucmo.nacha.record.finalform.batchcontrol.BatchControlFactory;
+import edu.ucmo.nacha.record.finalform.batchcontrol.BatchControlParser;
+import edu.ucmo.nacha.record.finalform.batchcontrol.DefaultBatchControl;
 import edu.ucmo.nacha.record.finalform.entrydetail.DefaultEntryDetail;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetail;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetailFactory;
@@ -18,6 +22,10 @@ import edu.ucmo.nacha.record.finalform.filecontrol.DefaultFileControl;
 import edu.ucmo.nacha.record.finalform.filecontrol.FileControl;
 import edu.ucmo.nacha.record.finalform.filecontrol.FileControlFactory;
 import edu.ucmo.nacha.record.finalform.filecontrol.FileControlParser;
+import edu.ucmo.nacha.record.finalform.fileheader.DefaultFileHeader;
+import edu.ucmo.nacha.record.finalform.fileheader.FileHeader;
+import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderFactory;
+import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderParser;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
@@ -60,6 +68,16 @@ public class RecordModule extends AbstractModule {
     // Field parser
     bind(FieldParser.class).to(DefaultFieldParser.class);
 
+    // File header
+    install(new FactoryModuleBuilder()
+        .implement(FileHeader.class, DefaultFileHeader.class)
+        .build(FileHeaderFactory.class));
+
+    // Batch control
+    install(new FactoryModuleBuilder()
+        .implement(BatchControl.class, DefaultBatchControl.class)
+        .build(BatchControlFactory.class));
+
     // Entry detail
     install(new FactoryModuleBuilder()
         .implement(EntryDetail.class, DefaultEntryDetail.class)
@@ -74,6 +92,8 @@ public class RecordModule extends AbstractModule {
     Multibinder<SpecializedRecordParser> recordParsersMultibinder =
         Multibinder.newSetBinder(binder(), SpecializedRecordParser.class);
 
+    recordParsersMultibinder.addBinding().to(FileHeaderParser.class);
+    recordParsersMultibinder.addBinding().to(BatchControlParser.class);
     recordParsersMultibinder.addBinding().to(EntryDetailParser.class);
     recordParsersMultibinder.addBinding().to(FileControlParser.class);
 
