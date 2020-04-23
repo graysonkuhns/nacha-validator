@@ -55,16 +55,16 @@ public class EntryDetailParser implements SpecializedRecordParser<EntryDetail> {
   @Override
   public EntryDetail parse(final IntermediateRecord record) {
     // Parse fields
-    int transactionType = fieldParser.getInt(record, RecordField.ED_TRANSACTION_TYPE);
-    long receiverRoutingNumber = fieldParser.getLong(record, RecordField.ED_RECEIVER_ROUTING_NUMBER);
-    int receiverRoutingNumberCheckDigit = fieldParser.getInt(record, RecordField.ED_RECEIVER_ROUTING_NUMBER_CHECK_DIGIT);
-    String receiverAccountNumber = fieldParser.getString(record, RecordField.ED_RECEIVER_ACCOUNT_NUMBER);
-    double transactionAmount = fieldParser.getCurrency(record, RecordField.ED_TRANSACTION_AMOUNT);
-    String receiverIdNumber = fieldParser.getStringOrNull(record, RecordField.ED_RECEIVER_ID_NUMBER);
-    String receiverName = fieldParser.getString(record, RecordField.ED_RECEIVER_NAME);
-    String discretionaryData = fieldParser.getStringOrNull(record, RecordField.ED_DISCRETIONARY_DATA);
-    boolean hasAddenda = fieldParser.getBoolean(record, RecordField.ED_HAS_ADDENDA);
-    long traceNumber = fieldParser.getLong(record, RecordField.ED_TRACE_NUMBER);
+    final int transactionType = fieldParser.getInt(record, RecordField.ED_TRANSACTION_TYPE);
+    final long receiverRoutingNumber = fieldParser.getLong(record, RecordField.ED_RECEIVER_ROUTING_NUMBER);
+    final int receiverRoutingNumberCheckDigit = fieldParser.getInt(record, RecordField.ED_RECEIVER_ROUTING_NUMBER_CHECK_DIGIT);
+    final String receiverAccountNumber = fieldParser.getString(record, RecordField.ED_RECEIVER_ACCOUNT_NUMBER);
+    final double transactionAmount = fieldParser.getCurrency(record, RecordField.ED_TRANSACTION_AMOUNT);
+    final String receiverIdNumber = fieldParser.getStringOrNull(record, RecordField.ED_RECEIVER_ID_NUMBER);
+    final String receiverName = fieldParser.getString(record, RecordField.ED_RECEIVER_NAME);
+    final String discretionaryData = fieldParser.getStringOrNull(record, RecordField.ED_DISCRETIONARY_DATA);
+    final boolean hasAddenda = fieldParser.getBoolean(record, RecordField.ED_HAS_ADDENDA);
+    final long traceNumber = fieldParser.getLong(record, RecordField.ED_TRACE_NUMBER);
 
     // Create the record
     return entryDetailFactory.create(
