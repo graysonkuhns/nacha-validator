@@ -217,9 +217,14 @@ public class DefaultFieldParserTest {
   public void getCurrency__ThrowsException__ForMalformedAmount__Test() {
     thrown.expect(FieldParseException.class);
     fields.put(RecordField.ED_TRANSACTION_TYPE, "  00005  6729  ");
-    assertThat(fieldParser
-        .getCurrency(record, RecordField.ED_TRANSACTION_TYPE))
-        .isEqualTo(567.29);
+    fieldParser.getCurrency(record, RecordField.ED_TRANSACTION_TYPE);
+  }
+
+  @Test
+  public void getCurrency__ThrowsException__WhenFieldIsNotSet__Test() {
+    thrown.expect(FieldParseException.class);
+    fields.put(RecordField.ED_TRANSACTION_TYPE, null);
+    fieldParser.getCurrency(record, RecordField.ED_TRANSACTION_TYPE);
   }
 
   @Before
