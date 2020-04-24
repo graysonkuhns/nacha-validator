@@ -46,13 +46,13 @@ public class DefaultBatchHeader implements BatchHeader {
   DefaultBatchHeader(
       @Assisted("serviceClassCode") final int serviceClassCode,
       @Assisted("companyName") final String companyName,
-      @Assisted("discretionaryData") final String discretionaryData,
+      @Assisted("discretionaryData") @Nullable final String discretionaryData,
       @Assisted("companyIdentification") final String companyIdentification,
       @Assisted("standardEntry") final String standardEntry,
       @Assisted("entryDescription") final String entryDescription,
-      @Assisted("descriptiveDate") final String descriptiveDate,
+      @Assisted("descriptiveDate") @Nullable final String descriptiveDate,
       @Assisted("effectiveEntryDate") final String effectiveEntryDate,
-      @Assisted("settlementDate") final String settlementDate,
+      @Assisted("settlementDate") @Nullable final String settlementDate,
       @Assisted("originatorStatusCode") final String originatorStatusCode,
       @Assisted("originatingDfiId") final String originatingDfiId,
       @Assisted("batchNumber") final long batchNumber) {
@@ -107,8 +107,8 @@ public class DefaultBatchHeader implements BatchHeader {
    * @return The discretionary data for bank use.
    */
   @Override
-  public String getDiscretionaryData() {
-    return discretionaryData;
+  public Optional<String> getDiscretionaryData() {
+    return Optional.ofNullable(discretionaryData);
   }
 
   /**
@@ -147,8 +147,8 @@ public class DefaultBatchHeader implements BatchHeader {
    * @return The date chosen to identify the record.
    */
   @Override
-  public String getDescriptiveDate() {
-    return descriptiveDate;
+  public Optional<String> getDescriptiveDate() {
+    return Optional.ofNullable(descriptiveDate);
   }
 
   /**
@@ -171,8 +171,8 @@ public class DefaultBatchHeader implements BatchHeader {
    * @return The date the transactions was settled.
    */
   @Override
-  public String getSettlementDate() {
-    return settlementDate;
+  public Optional<String> getSettlementDate() {
+    return Optional.ofNullable(settlementDate);
   }
 
   /**

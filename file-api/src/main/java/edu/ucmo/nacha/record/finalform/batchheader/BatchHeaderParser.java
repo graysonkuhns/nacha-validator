@@ -19,21 +19,21 @@ public class BatchHeaderParser implements SpecializedRecordParser<BatchHeader> {
 
   // Dependencies
   private final FieldParser fieldParser;
-  private final BatchHeaderFactory BatchHeaderFactory;
+  private final BatchHeaderFactory batchHeaderFactory;
 
   /**
    * Constructor.
    *
    * @param fieldParser The {@link FieldParser}.
-   * @param BatchHeaderFactory The {@link BatchHeaderFactory}.
+   * @param batchHeaderFactory The {@link BatchHeaderFactory}.
    */
   @Inject
   BatchHeaderParser(
       final FieldParser fieldParser,
-      final BatchHeaderFactory BatchHeaderFactory) {
+      final BatchHeaderFactory batchHeaderFactory) {
 
     this.fieldParser = fieldParser;
-    this.BatchHeaderFactory = BatchHeaderFactory;
+    this.batchHeaderFactory = batchHeaderFactory;
   }
 
   /**
@@ -57,19 +57,19 @@ public class BatchHeaderParser implements SpecializedRecordParser<BatchHeader> {
     // Parse fields
     final int serviceClassCode = fieldParser.getInt(record, RecordField.BH_SERVICE_CLASS_CODE);
     final String companyName = fieldParser.getString(record, RecordField.BH_COMPANY_NAME);
-    final String discretionaryData = fieldParser.getString(record, RecordField.BH_DISCRETIONARY_DATA);
+    final String discretionaryData = fieldParser.getStringOrNull(record, RecordField.BH_DISCRETIONARY_DATA)
     final String companyIdentification = fieldParser.getString(record, RecordField.BH_COMPANY_IDENTIFICATION);
     final String standardEntry = fieldParser.getString(record, RecordField.BH_STANDARD_ENTRY);
     final String entryDescription = fieldParser.getString(record, RecordField.BH_ENTRY_DESCRIPTION);
-    final String descriptiveDate = fieldParser.getString(record, RecordField.BH_DESCRIPTIVE_DATE);
+    final String descriptiveDate = fieldParser.getStringOrNull(record, RecordField.BH_DESCRIPTIVE_DATE);
     final String effectiveEntryDate = fieldParser.getString(record, RecordField.BH_EFFECTIVE_ENTRY_DATE);
-    final String settlementDate = fieldParser.getString(record, RecordField.BH_SETTLEMENT_DATE);
+    final String settlementDate = fieldParser.getStringOrNull(record, RecordField.BH_SETTLEMENT_DATE);
     final String originatorStatusCode = fieldParser.getString(record, RecordField.BH_ORIGINATOR_STATUS_CODE);
     final String originatingDfiId = fieldParser.getString(record, RecordField.BH_ORIGINATING_DFI_ID);
     final long batchNumber = fieldParser.getLong(record, RecordField.BH_BATCH_NUMBER);
 
     // Create the record
-    return BatchHeaderFactory.create(
+    return batchHeaderFactory.create(
         serviceClassCode,
         discretionaryData,
         companyIdentification,

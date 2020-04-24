@@ -1,6 +1,7 @@
 package edu.ucmo.nacha.record.finalform.batchheader;
 
 import edu.ucmo.nacha.record.finalform.Record;
+import java.util.Optional;
 
 /**
  * Batch header.
@@ -28,7 +29,7 @@ public interface BatchHeader extends Record {
    *
    * @return The discretionary data for bank use.
    */
-  String getDiscretionaryData();
+  Optional<String> getDiscretionaryData();
 
   /**
    * Gets the company identification number.
@@ -56,7 +57,7 @@ public interface BatchHeader extends Record {
    *
    * @return The date chosen to identify the record.
    */
-  String getDescriptiveDate();
+  Optional<String> getDescriptiveDate();
 
   /**
    * Gets the effective date the transaction should be posted.
@@ -74,7 +75,7 @@ public interface BatchHeader extends Record {
    *
    * @return The date the transactions was settled.
    */
-  String getSettlementDate();
+  Optional<String> getSettlementDate();
 
   /**
    * Gets the origins identifier code.
