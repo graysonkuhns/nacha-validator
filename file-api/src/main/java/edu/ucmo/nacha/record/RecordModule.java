@@ -18,6 +18,10 @@ import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetailFactory;
 import edu.ucmo.nacha.record.finalform.entrydetail.EntryDetailParser;
 import edu.ucmo.nacha.record.finalform.field.DefaultFieldParser;
 import edu.ucmo.nacha.record.finalform.field.FieldParser;
+import edu.ucmo.nacha.record.finalform.filecontrol.DefaultFileControl;
+import edu.ucmo.nacha.record.finalform.filecontrol.FileControl;
+import edu.ucmo.nacha.record.finalform.filecontrol.FileControlFactory;
+import edu.ucmo.nacha.record.finalform.filecontrol.FileControlParser;
 import edu.ucmo.nacha.record.finalform.fileheader.DefaultFileHeader;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeader;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderFactory;
@@ -28,8 +32,10 @@ import edu.ucmo.nacha.record.finalform.batchheader.BatchHeaderParser;
 import edu.ucmo.nacha.record.finalform.batchheader.DefaultBatchHeader;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.DefaultPaddingDetector;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.PaddingDetector;
 import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 import java.util.Arrays;
 
@@ -45,7 +51,10 @@ public class RecordModule extends AbstractModule {
    */
   @Override
   protected void configure() {
-    // Intermediate parsers section --------------------------------------------------------------
+    // Intermediate records section --------------------------------------------------------------
+
+    // Padding detector
+    bind(PaddingDetector.class).to(DefaultPaddingDetector.class);
 
     // Specialized record parsers
     Multibinder<SpecializedIntermediateRecordParser> intermediateRecordParsersMultibinder =
@@ -63,7 +72,7 @@ public class RecordModule extends AbstractModule {
     // Multi parser
     bind(IntermediateRecordsParser.class).to(DefaultIntermediateRecordsParser.class);
 
-    // Final form parsers section ----------------------------------------------------------------
+    // Final-form records section ----------------------------------------------------------------
 
     // Field parser
     bind(FieldParser.class).to(DefaultFieldParser.class);
@@ -88,6 +97,11 @@ public class RecordModule extends AbstractModule {
         .implement(BatchHeader.class, DefaultBatchHeader.class)
         .build(BatchHeaderFactory.class));
 
+    // File control
+    install(new FactoryModuleBuilder()
+        .implement(FileControl.class, DefaultFileControl.class)
+        .build(FileControlFactory.class));
+
     // Specialized record parsers
     Multibinder<SpecializedRecordParser> recordParsersMultibinder =
         Multibinder.newSetBinder(binder(), SpecializedRecordParser.class);
@@ -96,6 +110,7 @@ public class RecordModule extends AbstractModule {
     recordParsersMultibinder.addBinding().to(BatchControlParser.class);
     recordParsersMultibinder.addBinding().to(EntryDetailParser.class);
     recordParsersMultibinder.addBinding().to(BatchHeaderParser.class);
+    recordParsersMultibinder.addBinding().to(FileControlParser.class);
 
     // Aggregate record parser
     bind(RecordParser.class).to(AggregateRecordParser.class);
