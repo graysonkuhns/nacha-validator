@@ -24,8 +24,10 @@ import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderFactory;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderParser;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.DefaultPaddingDetector;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
+import edu.ucmo.nacha.record.intermediate.PaddingDetector;
 import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 import java.util.Arrays;
 
@@ -41,7 +43,10 @@ public class RecordModule extends AbstractModule {
    */
   @Override
   protected void configure() {
-    // Intermediate parsers section --------------------------------------------------------------
+    // Intermediate records section --------------------------------------------------------------
+
+    // Padding detector
+    bind(PaddingDetector.class).to(DefaultPaddingDetector.class);
 
     // Specialized record parsers
     Multibinder<SpecializedIntermediateRecordParser> intermediateRecordParsersMultibinder =
@@ -59,7 +64,7 @@ public class RecordModule extends AbstractModule {
     // Multi parser
     bind(IntermediateRecordsParser.class).to(DefaultIntermediateRecordsParser.class);
 
-    // Final form parsers section ----------------------------------------------------------------
+    // Final-form records section ----------------------------------------------------------------
 
     // Field parser
     bind(FieldParser.class).to(DefaultFieldParser.class);
