@@ -51,11 +51,6 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
           String.format("Records are expected to be %d characters long", RECORD_LENGTH));
     }
 
-    // Check if the input is padding
-    if (isPadding(input)) {
-      return null;
-    }
-
     // Determine the record type
     final RecordType recordType;
     try {
@@ -73,17 +68,5 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
 
     // Parse the record
     return parser.parse(input);
-  }
-
-  private boolean isPadding(final String input) {
-    int nine_count = 0;
-
-    for (char ch : input.toCharArray()) {
-      if (ch == '9') {
-        nine_count++;
-      }
-    }
-
-    return nine_count == RECORD_LENGTH;
   }
 }
