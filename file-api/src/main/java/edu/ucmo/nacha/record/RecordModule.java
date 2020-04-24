@@ -26,6 +26,10 @@ import edu.ucmo.nacha.record.finalform.fileheader.DefaultFileHeader;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeader;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderFactory;
 import edu.ucmo.nacha.record.finalform.fileheader.FileHeaderParser;
+import edu.ucmo.nacha.record.finalform.batchheader.BatchHeader;
+import edu.ucmo.nacha.record.finalform.batchheader.BatchHeaderFactory;
+import edu.ucmo.nacha.record.finalform.batchheader.BatchHeaderParser;
+import edu.ucmo.nacha.record.finalform.batchheader.DefaultBatchHeader;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
 import edu.ucmo.nacha.record.intermediate.DefaultPaddingDetector;
@@ -87,6 +91,11 @@ public class RecordModule extends AbstractModule {
     install(new FactoryModuleBuilder()
         .implement(EntryDetail.class, DefaultEntryDetail.class)
         .build(EntryDetailFactory.class));
+    
+    // Batch header
+    install(new FactoryModuleBuilder()
+        .implement(BatchHeader.class, DefaultBatchHeader.class)
+        .build(BatchHeaderFactory.class));
 
     // File control
     install(new FactoryModuleBuilder()
@@ -100,6 +109,7 @@ public class RecordModule extends AbstractModule {
     recordParsersMultibinder.addBinding().to(FileHeaderParser.class);
     recordParsersMultibinder.addBinding().to(BatchControlParser.class);
     recordParsersMultibinder.addBinding().to(EntryDetailParser.class);
+    recordParsersMultibinder.addBinding().to(BatchHeaderParser.class);
     recordParsersMultibinder.addBinding().to(FileControlParser.class);
 
     // Aggregate record parser
