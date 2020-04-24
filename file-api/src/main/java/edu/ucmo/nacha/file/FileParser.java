@@ -1,4 +1,4 @@
-package edu.ucmo.nacha.record.intermediate;
+package edu.ucmo.nacha.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,19 +6,19 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * NACHA file parser.
+ * NACHA File Parser.
  *
  * @author Grayson Kuhns
  */
-public interface IntermediateRecordsParser {
+public interface FileParser {
 
   /**
    * Parses raw records from a NACHA file.
    *
    * @param rawRecords The raw records.
-   * @return The {@link IntermediateRecord}s.
+   * @return The {@link FileParseResults}s.
    */
-  List<IntermediateRecord> parse(List<String> rawRecords);
+  FileParseResults parse(List<String> rawRecords);
 
   /**
    * Parses a NACHA file from an {@link InputStream}.
@@ -28,17 +28,17 @@ public interface IntermediateRecordsParser {
    * </p>
    *
    * @param inputStream The {@link InputStream}.
-   * @return The {@link IntermediateRecord}s.
+   * @return The {@link FileParseResults}s.
    * @throws IOException If an I/O error occurs.
    */
-  List<IntermediateRecord> parse(InputStream inputStream) throws IOException;
+  FileParseResults parse(InputStream inputStream) throws IOException;
 
   /**
    * Parses a NACHA file.
    *
    * @param file The {@link File}.
-   * @return The {@link IntermediateRecord}s.
+   * @return The {@link FileParseResults}s.
    * @throws IOException If an I/O error occurs.
    */
-  List<IntermediateRecord> parse(File file) throws IOException;
+  FileParseResults parse(File file) throws IOException;
 }
