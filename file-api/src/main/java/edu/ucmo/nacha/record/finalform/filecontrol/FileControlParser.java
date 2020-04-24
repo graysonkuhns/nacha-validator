@@ -55,13 +55,13 @@ public class FileControlParser implements SpecializedRecordParser<FileControl> {
   @Override
   public FileControl parse(IntermediateRecord record) {
     // Parse fields
-    long batchCount = fieldParser.getLong(record, RecordField.FC_BATCH_COUNT);
-    long blockCount = fieldParser.getLong(record, RecordField.FC_BLOCK_COUNT);
-    long entryAndAddendaCount = fieldParser.getLong(record, RecordField.FC_ENTRY_AND_ADDENDA_COUNT);
-    long entryHash = fieldParser.getLong(record, RecordField.FC_ENTRY_HASH);
-    double debitAmount = fieldParser.getDouble(record, RecordField.FC_DEBIT_AMOUNT);
-    double creditAmount = fieldParser.getDouble(record, RecordField.FC_CREDIT_AMOUNT);
-    String reserved = fieldParser.getStringOrNull(record, RecordField.FC_RESERVED);
+    final long batchCount = fieldParser.getLong(record, RecordField.FC_BATCH_COUNT);
+    final long blockCount = fieldParser.getLong(record, RecordField.FC_BLOCK_COUNT);
+    final long entryAndAddendaCount = fieldParser.getLong(record, RecordField.FC_ENTRY_AND_ADDENDA_COUNT);
+    final long entryHash = fieldParser.getLong(record, RecordField.FC_ENTRY_HASH);
+    final double debitAmount = fieldParser.getDouble(record, RecordField.FC_DEBIT_AMOUNT);
+    final double creditAmount = fieldParser.getDouble(record, RecordField.FC_CREDIT_AMOUNT);
+    final String reserved = fieldParser.getStringOrNull(record, RecordField.FC_RESERVED);
 
     // Create the record
     return fileControlFactory.create(
