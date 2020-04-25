@@ -96,7 +96,7 @@ public class RecordModule extends AbstractModule {
         .implement(EntryDetail.class, DefaultEntryDetail.class)
         .build(EntryDetailFactory.class));
 
-    // Entry detail
+    // Entry detail addenda
     install(new FactoryModuleBuilder()
         .implement(EntryDetailAddenda.class, DefaultEntryDetailAddenda.class)
         .build(EntryDetailAddendaFactory.class));
@@ -118,6 +118,7 @@ public class RecordModule extends AbstractModule {
     recordParsersMultibinder.addBinding().to(FileHeaderParser.class);
     recordParsersMultibinder.addBinding().to(BatchControlParser.class);
     recordParsersMultibinder.addBinding().to(EntryDetailParser.class);
+    recordParsersMultibinder.addBinding().to(EntryDetailAddendaParser.class);
     recordParsersMultibinder.addBinding().to(BatchHeaderParser.class);
     recordParsersMultibinder.addBinding().to(FileControlParser.class);
 
