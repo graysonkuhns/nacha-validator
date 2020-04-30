@@ -66,7 +66,7 @@ public class DefaultEntryDetailAddenda implements EntryDetailAddenda {
    * @return Any payment related information
    */
   @Override
-  public Option<String> getPaymentInformation() {
+  public Optional<String> getPaymentInformation() {
     return Optional.ofNullable(paymentInfo);
   }
 

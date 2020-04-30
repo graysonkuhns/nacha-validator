@@ -22,7 +22,7 @@ public interface EntryDetailAddenda extends Record {
    *
    * @return Any payment related information
    */
-  Option<String> getPaymentInformation();
+  Optional<String> getPaymentInformation();
 
   /**
    * Gets the number which sequences the addenda record.

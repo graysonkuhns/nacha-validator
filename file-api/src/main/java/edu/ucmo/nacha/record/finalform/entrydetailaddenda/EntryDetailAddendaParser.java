@@ -53,7 +53,7 @@ public class EntryDetailAddendaParser implements SpecializedRecordParser<EntryDe
    * @return The final-form {@link Record}.
    */
   @Override
-  public BatchControl parse(final IntermediateRecord record) {
+  public EntryDetailAddenda parse(final IntermediateRecord record) {
     // Parse fields
     final int typeCode = fieldParser.getInt(record, RecordField.EDA_TYPE_CODE);
     final String paymentInformation = fieldParser.getStringOrNull(record, RecordField.EDA_PAYMENT_INFORMATION);

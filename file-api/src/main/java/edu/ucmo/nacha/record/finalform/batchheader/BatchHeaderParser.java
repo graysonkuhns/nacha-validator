@@ -57,7 +57,7 @@ public class BatchHeaderParser implements SpecializedRecordParser<BatchHeader> {
     // Parse fields
     final int serviceClassCode = fieldParser.getInt(record, RecordField.BH_SERVICE_CLASS_CODE);
     final String companyName = fieldParser.getString(record, RecordField.BH_COMPANY_NAME);
-    final String discretionaryData = fieldParser.getStringOrNull(record, RecordField.BH_DISCRETIONARY_DATA)
+    final String discretionaryData = fieldParser.getStringOrNull(record, RecordField.BH_DISCRETIONARY_DATA);
     final String companyIdentification = fieldParser.getString(record, RecordField.BH_COMPANY_IDENTIFICATION);
     final String standardEntry = fieldParser.getString(record, RecordField.BH_STANDARD_ENTRY);
     final String entryDescription = fieldParser.getString(record, RecordField.BH_ENTRY_DESCRIPTION);
@@ -71,14 +71,15 @@ public class BatchHeaderParser implements SpecializedRecordParser<BatchHeader> {
     // Create the record
     return batchHeaderFactory.create(
         serviceClassCode,
+        companyName,
         discretionaryData,
         companyIdentification,
         standardEntry,
         entryDescription,
-        descriptiveDate
-        effectiveEntryDate
-        settlementDate
-        originatorStatusCode
+        descriptiveDate,
+        effectiveEntryDate,
+        settlementDate,
+        originatorStatusCode,
         originatingDfiId,
         batchNumber);
   }
