@@ -1,5 +1,7 @@
 package edu.ucmo.nacha.record.finalform.fileheader;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.ucmo.nacha.record.RecordField;
 import edu.ucmo.nacha.record.finalform.Record;
 import java.util.Optional;
 

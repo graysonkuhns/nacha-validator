@@ -1,6 +1,7 @@
 package edu.ucmo.nacha.record.finalform.fileheader;
 
 import com.google.inject.assistedinject.Assisted;
+import edu.ucmo.nacha.record.RecordField;
 import edu.ucmo.nacha.record.RecordType;
 import java.util.Optional;
 import javax.annotation.Nullable;

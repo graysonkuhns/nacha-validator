@@ -140,6 +140,27 @@ public enum RecordField {
     return required;
   }
 
+  public String getSnakeCaseName() {
+    final String[] nameParts = toString().split("_");
+    final StringBuilder name = new StringBuilder();
+
+    for (int i = 1; i < nameParts.length; i++) {
+      char firstChar = nameParts[i].charAt(0);
+
+      if (i == 1) {
+        firstChar = Character.toLowerCase(firstChar);
+      } else {
+        firstChar = Character.toUpperCase(firstChar);
+      }
+
+      name.append(firstChar);
+      name.append(
+          nameParts[i].substring(1).toLowerCase());
+    }
+
+    return name.toString();
+  }
+
   /**
    * Gets the {@link RecordField}s for a {@link RecordType}.
    *

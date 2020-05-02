@@ -113,4 +113,13 @@ public class RecordFieldTest {
         .contains(RecordField.BH_ORIGINATING_DFI_ID)
         .contains(RecordField.BH_BATCH_NUMBER);
   }
+
+  @Test
+  public void getSnakeCaseName__Test() {
+    assertThat(RecordField
+        .BH_SERVICE_CLASS_CODE
+        .getSnakeCaseName())
+        .isNotNull()
+        .isEqualTo("serviceClassCode");
+  }
 }
