@@ -1,5 +1,6 @@
 package edu.ucmo.nacha.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.inject.Guice
 import com.google.inject.Inject
@@ -7,6 +8,7 @@ import com.google.inject.Singleton
 import edu.ucmo.nacha.file.FileModule
 import edu.ucmo.nacha.record.RecordModule
 import edu.ucmo.nacha.service.resources.Resource
+import edu.ucmo.nacha.service.serialization.SerializerRegistrar
 import io.dropwizard.Application
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
@@ -19,7 +21,8 @@ import io.dropwizard.setup.Environment
 @Singleton
 class ValidationServiceApplication
     @Inject constructor(
-        private val resources : Set<@JvmSuppressWildcards Resource>
+        private val resources: Set<@JvmSuppressWildcards Resource>,
+        private val serializerRegistrar: SerializerRegistrar
     )
     : Application<ValidationServiceConfiguration>() {
 
@@ -41,7 +44,14 @@ class ValidationServiceApplication
     }
 
     override fun initialize(bootstrap: Bootstrap<ValidationServiceConfiguration>) {
-        bootstrap.objectMapper.registerModule(KotlinModule())
+        // Get the object mapper used by Jersey
+        val mapper: ObjectMapper = bootstrap.objectMapper
+
+        // Register Kotlin compatibility module
+        mapper.registerModule(KotlinModule())
+
+        // Register customer serializers
+        serializerRegistrar.register(mapper)
     }
 
     override fun run(config: ValidationServiceConfiguration, environment: Environment) {

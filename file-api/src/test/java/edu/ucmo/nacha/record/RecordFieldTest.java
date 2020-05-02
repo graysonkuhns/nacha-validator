@@ -115,10 +115,10 @@ public class RecordFieldTest {
   }
 
   @Test
-  public void getSnakeCaseName__Test() {
+  public void getName__Test() {
     assertThat(RecordField
         .BH_SERVICE_CLASS_CODE
-        .getSnakeCaseName())
+        .getName())
         .isNotNull()
         .isEqualTo("serviceClassCode");
   }
