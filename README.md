@@ -9,3 +9,9 @@ This project aims to adhere to the [Google Java Style Guide](https://google.gith
 ## Versioning
 
 This project aims to adhere to [Semantic Versioning 2.0.0](http://semver.org/).
+
+## Authors
+
+* [Grayson Kuhns](https://www.linkedin.com/in/graysonkuhns/)
+* Garrett Ewens
+* King Butcher
