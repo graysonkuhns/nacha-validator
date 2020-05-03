@@ -70,6 +70,7 @@ public class FileHeaderParser implements SpecializedRecordParser<FileHeader> {
 
     // Create the record
     return fileHeaderFactory.create(
+        record.getIndex(),
         priorityCode,
         immediateDestination,
         immediateOrigin,

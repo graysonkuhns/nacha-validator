@@ -70,6 +70,7 @@ public class BatchHeaderParser implements SpecializedRecordParser<BatchHeader> {
 
     // Create the record
     return batchHeaderFactory.create(
+        record.getIndex(),
         serviceClassCode,
         companyName,
         discretionaryData,

@@ -12,6 +12,7 @@ public interface BatchHeaderFactory {
   /**
    * Creates an {@link BatchHeader}.
    *
+   * @param index The index.
    * @param serviceClassCode The service class code.
    * @param companyName The company name
    * @param discretionaryData Any discretionary data for bank use.
@@ -27,6 +28,7 @@ public interface BatchHeaderFactory {
    * @return The {@link BatchHeader}.
    */
   BatchHeader create(
+      @Assisted("index") int index,
       @Assisted("serviceClassCode") final int serviceClassCode,
       @Assisted("companyName") final String companyName,
       @Assisted("discretionaryData") final String discretionaryData,

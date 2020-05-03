@@ -1,6 +1,5 @@
 package edu.ucmo.nacha.record.finalform.filecontrol;
 
-
 import com.google.inject.assistedinject.Assisted;
 
 /**
@@ -13,6 +12,7 @@ public interface FileControlFactory {
   /**
    * Creates an {@link FileControl}.
    *
+   * @param index The index.
    * @param batchCount the batch count.
    * @param blockCount the total number of blocks in file.
    * @param entryAndAddendaCount the entry and addenda count.
@@ -23,6 +23,7 @@ public interface FileControlFactory {
    * @return The {@link FileControl}.
    */
   FileControl create(
+      @Assisted("index") int index,
       @Assisted("batchCount") final long batchCount,
       @Assisted("blockCount") final long blockCount,
       @Assisted("entryAndAddendaCount") final long entryAndAddendaCount,

@@ -62,6 +62,7 @@ public class EntryDetailAddendaParser implements SpecializedRecordParser<EntryDe
 
     // Create the record
     return entryDetailAddendaFactory.create(
+        record.getIndex(),
         typeCode,
         paymentInformation,
         addendaSequenceNumber,

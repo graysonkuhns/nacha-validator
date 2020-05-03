@@ -12,6 +12,7 @@ public interface EntryDetailFactory {
   /**
    * Creates an {@link EntryDetail}.
    *
+   * @param index The index.
    * @param transactionType The transaction type code.
    * @param receiverRoutingNumber The routing number of the receiving institution.
    * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
@@ -25,6 +26,7 @@ public interface EntryDetailFactory {
    * @return The {@link EntryDetail}.
    */
   EntryDetail create(
+      @Assisted("index") int index,
       @Assisted("transactionType") int transactionType,
       @Assisted("receiverRoutingNumber") long receiverRoutingNumber,
       @Assisted("receiverRoutingNumberCheckDigit") int receiverRoutingNumberCheckDigit,

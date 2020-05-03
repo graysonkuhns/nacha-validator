@@ -1,8 +1,8 @@
 package edu.ucmo.nacha.record.finalform.batchcontrol;
 
-
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -12,7 +12,9 @@ import javax.inject.Inject;
  *
  * @author Garrett Ewens
  */
-public class DefaultBatchControl implements BatchControl {
+public class DefaultBatchControl
+    extends AbstractRecord
+    implements BatchControl {
 
   // Properties
   private final int serviceClassCode;
@@ -29,6 +31,7 @@ public class DefaultBatchControl implements BatchControl {
   /**
    * Constructor
    *
+   * @param index The index.
    * @param serviceClassCode The service class code.
    * @param entryAndAddendaCount The entry and addenda count in batch.
    * @param entryHash The entry hash of first 8 digits of routing numbers.
@@ -42,6 +45,7 @@ public class DefaultBatchControl implements BatchControl {
    */
   @Inject
   DefaultBatchControl(
+      @Assisted("index") final int index,
       @Assisted("serviceClassCode") final int serviceClassCode,
       @Assisted("entryAndAddendaCount") final long entryAndAddendaCount,
       @Assisted("entryHash") final long entryHash,
@@ -53,6 +57,7 @@ public class DefaultBatchControl implements BatchControl {
       @Assisted("originatingDfiId") final String originatingDfiId,
       @Assisted("batchNumber") final long batchNumber) {
 
+    super(index);
     this.serviceClassCode = serviceClassCode;
     this.entryAndAddendaCount = entryAndAddendaCount;
     this.entryHash = entryHash;

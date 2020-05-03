@@ -68,6 +68,7 @@ public class EntryDetailParser implements SpecializedRecordParser<EntryDetail> {
 
     // Create the record
     return entryDetailFactory.create(
+        record.getIndex(),
         transactionType,
         receiverRoutingNumber,
         receiverRoutingNumberCheckDigit,

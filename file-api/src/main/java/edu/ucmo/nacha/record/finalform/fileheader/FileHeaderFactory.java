@@ -12,6 +12,7 @@ public interface FileHeaderFactory {
   /**
    * Creates a {@link FileHeader}.
    *
+   * @param index The index.
    * @param priorityCode The priority code.
    * @param immediateDestination The immediate destination.
    * @param immediateOrigin The immediate origin.
@@ -27,6 +28,7 @@ public interface FileHeaderFactory {
    * @return The {@link FileHeader}.
    */
   FileHeader create(
+      @Assisted("index") int index,
       @Assisted("priorityCode") int priorityCode,
       @Assisted("immediateDestination") long immediateDestination,
       @Assisted("immediateOrigin") long immediateOrigin,
