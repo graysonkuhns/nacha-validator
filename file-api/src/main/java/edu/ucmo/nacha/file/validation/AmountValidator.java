@@ -17,6 +17,11 @@ public class AmountValidator {
   // Constants
   private static final double THRESHOLD = .0001D;
 
+  private static final int CREDIT_SAVING = 32;
+  private static final int CREDIT_DDA = 22;
+  private static final int DEBIT_SAVING = 37;
+  private static final int DEBIT_DDA = 27;
+
   public void validateAmounts(
       final List<Record> records,
       final ValidationRecord validationRecord) {
@@ -39,10 +44,10 @@ public class AmountValidator {
           EntryDetail entry = (EntryDetail) record;
           int transactionType = entry.getTransactionType();
 
-          if (transactionType == 22 || transactionType == 32) {
+          if (transactionType == CREDIT_DDA || transactionType == CREDIT_SAVING) {
             // Credit
             creditTotal += entry.getTransactionAmount();
-          } else if (transactionType == 27 || transactionType == 37) {
+          } else if (transactionType == DEBIT_DDA || transactionType == DEBIT_SAVING) {
             // Debit
             debitTotal += entry.getTransactionAmount();
           }
