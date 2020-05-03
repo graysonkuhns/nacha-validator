@@ -58,8 +58,8 @@ public class BatchControlParser implements SpecializedRecordParser<BatchControl>
     final int serviceClassCode = fieldParser.getInt(record, RecordField.BC_SERVICE_CLASS_CODE);
     final long entryAndAddendaCount = fieldParser.getLong(record, RecordField.BC_ENTRY_AND_ADDENDA_COUNT);
     final long entryHash = fieldParser.getLong(record, RecordField.BC_ENTRY_HASH);
-    final double debitAmount = fieldParser.getDouble(record, RecordField.BC_DEBIT_AMOUNT);
-    final double creditAmount = fieldParser.getDouble(record, RecordField.BC_CREDIT_AMOUNT);
+    final double debitAmount = fieldParser.getCurrency(record, RecordField.BC_DEBIT_AMOUNT);
+    final double creditAmount = fieldParser.getCurrency(record, RecordField.BC_CREDIT_AMOUNT);
     final String companyIdentification = fieldParser.getString(record, RecordField.BC_COMPANY_IDENTIFICATION);
     final String messageAuthentication = fieldParser.getStringOrNull(record, RecordField.BC_MESSAGE_AUTHENTICATION_CODE);
     final String reserved = fieldParser.getStringOrNull(record, RecordField.BC_RESERVED);

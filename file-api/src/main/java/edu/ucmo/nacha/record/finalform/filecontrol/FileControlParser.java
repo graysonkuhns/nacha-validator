@@ -59,8 +59,8 @@ public class FileControlParser implements SpecializedRecordParser<FileControl> {
     final long blockCount = fieldParser.getLong(record, RecordField.FC_BLOCK_COUNT);
     final long entryAndAddendaCount = fieldParser.getLong(record, RecordField.FC_ENTRY_AND_ADDENDA_COUNT);
     final long entryHash = fieldParser.getLong(record, RecordField.FC_ENTRY_HASH);
-    final double debitAmount = fieldParser.getDouble(record, RecordField.FC_DEBIT_AMOUNT);
-    final double creditAmount = fieldParser.getDouble(record, RecordField.FC_CREDIT_AMOUNT);
+    final double debitAmount = fieldParser.getCurrency(record, RecordField.FC_DEBIT_AMOUNT);
+    final double creditAmount = fieldParser.getCurrency(record, RecordField.FC_CREDIT_AMOUNT);
     final String reserved = fieldParser.getStringOrNull(record, RecordField.FC_RESERVED);
 
     // Create the record

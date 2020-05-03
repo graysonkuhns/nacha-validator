@@ -145,6 +145,15 @@ public enum RecordField {
   }
 
   /**
+   * Gets the name.
+   *
+   * @return The name.
+   */
+  public String getName() {
+    return toString();
+  }
+
+  /**
    * Gets the {@link RecordField}s for a {@link RecordType}.
    *
    * @param recordType The {@link RecordType}.

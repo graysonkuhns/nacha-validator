@@ -1,5 +1,7 @@
 package edu.ucmo.nacha.file;
 
+import edu.ucmo.nacha.file.validation.AmountValidator;
+import edu.ucmo.nacha.file.validation.ValidationRecord;
 import edu.ucmo.nacha.record.finalform.Record;
 import edu.ucmo.nacha.record.finalform.RecordParser;
 import edu.ucmo.nacha.record.finalform.RecordsParser;
@@ -14,6 +16,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 
 /**
@@ -29,6 +32,8 @@ public class DefaultFileParser implements FileParser {
   private final IntermediateRecordsParser intermediateRecordsParser;
   private final PaddingDetector paddingDetector;
   private final RecordParser recordParser;
+  private final AmountValidator amountValidator;
+  private final Provider<ValidationRecord> validationRecordProvider;
 
   /**
    * Constructor.
@@ -37,18 +42,24 @@ public class DefaultFileParser implements FileParser {
    * @param intermediateRecordsParser The {@link IntermediateRecordsParser}.
    * @param paddingDetector The {@link PaddingDetector}.
    * @param recordParser The {@link RecordParser}.
+   * @param amountValidator The {@link AmountValidator}.
+   * @param validationRecordProvider The {@link ValidationRecord} {@link Provider}.
    */
   @Inject
   DefaultFileParser(
       final FileParseResultsFactory fileParseResultsFactory,
       final IntermediateRecordsParser intermediateRecordsParser,
       final PaddingDetector paddingDetector,
-      final RecordParser recordParser) {
+      final RecordParser recordParser,
+      final AmountValidator amountValidator,
+      final Provider<ValidationRecord> validationRecordProvider) {
 
     this.fileParseResultsFactory = fileParseResultsFactory;
     this.intermediateRecordsParser = intermediateRecordsParser;
     this.paddingDetector = paddingDetector;
     this.recordParser = recordParser;
+    this.amountValidator = amountValidator;
+    this.validationRecordProvider = validationRecordProvider;
   }
 
   private FileParseResults parseAndValidate(final List<IntermediateRecord> intermediateRecords) {
@@ -60,7 +71,14 @@ public class DefaultFileParser implements FileParser {
         .filter(Objects::nonNull)
         .collect(Collectors.toList());
 
-    return fileParseResultsFactory.create(finalRecords);
+    // Create a fresh validation record
+    final ValidationRecord validationRecord = validationRecordProvider.get();
+
+    // Validate the amount totals
+    amountValidator.validateAmounts(finalRecords, validationRecord);
+
+    // Create the result
+    return fileParseResultsFactory.create(finalRecords, validationRecord);
   }
 
   /**
