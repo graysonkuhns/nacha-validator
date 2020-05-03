@@ -12,6 +12,7 @@ public interface BatchControlFactory {
   /**
    * Creates an {@link BatchControl}.
    *
+   * @param index The index.
    * @param serviceClassCode The service class code.
    * @param entryAndAddendaCount The entry and addenda count in batch.
    * @param entryHash The entry hash of first 8 digits of routing numbers.
@@ -25,6 +26,7 @@ public interface BatchControlFactory {
    * @return The {@link BatchControl}.
    */
   BatchControl create(
+      @Assisted("index") int index,
       @Assisted("serviceClassCode") final int serviceClassCode,
       @Assisted("entryAndAddendaCount") final long entryAndAddendaCount,
       @Assisted("entryHash") final long entryHash,

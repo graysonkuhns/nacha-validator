@@ -1,5 +1,7 @@
 package edu.ucmo.nacha.record;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +11,7 @@ import java.util.stream.Collectors;
  *
  * @author Grayson Kuhns
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RecordField {
 
   // File Header
@@ -109,6 +112,7 @@ public enum RecordField {
    *
    * @return The {@link RecordType}.
    */
+  @JsonIgnore
   public RecordType getRecordType() {
     return recordType;
   }

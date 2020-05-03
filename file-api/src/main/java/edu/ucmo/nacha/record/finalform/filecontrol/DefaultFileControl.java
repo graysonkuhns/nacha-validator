@@ -2,6 +2,7 @@ package edu.ucmo.nacha.record.finalform.filecontrol;
 
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import javax.inject.Inject;
  *
  * @author Garrett Ewens
  */
-public class DefaultFileControl implements FileControl {
+public class DefaultFileControl
+    extends AbstractRecord
+    implements FileControl {
 
   // Properties
   private final long batchCount;
@@ -35,6 +38,7 @@ public class DefaultFileControl implements FileControl {
    */
   @Inject
   DefaultFileControl(
+      @Assisted("index") final int index,
       @Assisted("batchCount") final long batchCount,
       @Assisted("blockCount") final long blockCount,
       @Assisted("entryAndAddendaCount") final long entryAndAddendaCount,
@@ -43,6 +47,7 @@ public class DefaultFileControl implements FileControl {
       @Assisted("creditAmount") final double creditAmount,
       @Assisted("reserved") @Nullable final String reserved) {
 
+    super(index);
     this.batchCount = batchCount;
     this.blockCount = blockCount;
     this.entryAndAddendaCount = entryAndAddendaCount;

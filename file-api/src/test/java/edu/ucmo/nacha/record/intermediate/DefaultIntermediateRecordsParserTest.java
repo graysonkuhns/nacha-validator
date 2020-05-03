@@ -1,6 +1,7 @@
 package edu.ucmo.nacha.record.intermediate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Provider;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -63,6 +65,7 @@ public class DefaultIntermediateRecordsParserTest {
   private File recordsWithoutEndLineFile;
   private File recordsWithEndLineFile;
 
+  private IndexTracker indexTracker;
   private IntermediateRecordsParser intermediateRecordsParser;
 
   @Test
@@ -100,16 +103,16 @@ public class DefaultIntermediateRecordsParserTest {
     recordParser = mock(IntermediateRecordParser.class);
     doReturn(recordA)
         .when(recordParser)
-        .parse(eq(RECORD_A));
+        .parse(eq(RECORD_A), any());
     doReturn(recordB)
         .when(recordParser)
-        .parse(eq(RECORD_B));
+        .parse(eq(RECORD_B), any());
     doReturn(recordC)
         .when(recordParser)
-        .parse(eq(RECORD_C));
+        .parse(eq(RECORD_C), any());
     doReturn(null)
         .when(recordParser)
-        .parse(eq(RECORD_PADDING));
+        .parse(eq(RECORD_PADDING), any());
 
     // Aggregate records
     rawRecords = new ArrayList<>();
@@ -133,8 +136,15 @@ public class DefaultIntermediateRecordsParserTest {
     recordsWithEndLineFile = folder.newFile("recordsWithLineEnding.txt");
     write(recordsWithEndLineFile, RECORDS_WITH_END_LINE);
 
+    // Index tracking mocking
+    indexTracker = mock(IndexTracker.class);
+    Provider<IndexTracker> indexTrackerProvider = mock(Provider.class);
+    doReturn(indexTracker)
+        .when(indexTrackerProvider)
+        .get();
+
     // Create the file parser
-    intermediateRecordsParser = new DefaultIntermediateRecordsParser(recordParser);
+    intermediateRecordsParser = new DefaultIntermediateRecordsParser(recordParser, indexTrackerProvider);
   }
 
   private void validateRecords(final List<IntermediateRecord> records) {

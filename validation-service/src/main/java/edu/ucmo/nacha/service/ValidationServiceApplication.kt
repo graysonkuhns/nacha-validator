@@ -1,5 +1,6 @@
 package edu.ucmo.nacha.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.google.inject.Guice
 import com.google.inject.Inject
@@ -19,7 +20,7 @@ import io.dropwizard.setup.Environment
 @Singleton
 class ValidationServiceApplication
     @Inject constructor(
-        private val resources : Set<@JvmSuppressWildcards Resource>
+        private val resources: Set<@JvmSuppressWildcards Resource>
     )
     : Application<ValidationServiceConfiguration>() {
 
@@ -41,7 +42,9 @@ class ValidationServiceApplication
     }
 
     override fun initialize(bootstrap: Bootstrap<ValidationServiceConfiguration>) {
+        // Register Kotlin compatibility module
         bootstrap.objectMapper.registerModule(KotlinModule())
+
     }
 
     override fun run(config: ValidationServiceConfiguration, environment: Environment) {

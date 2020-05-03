@@ -40,10 +40,11 @@ public class SpecializedIntermediateRecordParser implements IntermediateRecordPa
    * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
+   * @param indexTracker The {@link IndexTracker}.
    * @return The {@link IntermediateRecord}.
    */
   @Override
-  public IntermediateRecord parse(final String input) {
+  public IntermediateRecord parse(final String input, final IndexTracker indexTracker) {
     final Map<RecordField, String> fields = new HashMap<>();
 
     recordFields.forEach(field -> {
@@ -58,6 +59,6 @@ public class SpecializedIntermediateRecordParser implements IntermediateRecordPa
       fields.put(field, fieldData);
     });
 
-    return new DefaultIntermediateRecord(recordType, fields);
+    return new DefaultIntermediateRecord(indexTracker.getNext(), recordType, fields);
   }
 }

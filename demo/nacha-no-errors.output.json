@@ -1,6 +1,7 @@
 {
   "records": [
     {
+      "index": 0,
       "priorityCode": 1,
       "immediateDestination": 101000019,
       "immediateOrigin": 8675307521,
@@ -16,6 +17,7 @@
       "type": "FILE_HEADER"
     },
     {
+      "index": 1,
       "serviceClassCode": 220,
       "companyName": "STRAWBERRYFIELDS",
       "discretionaryData": null,
@@ -31,6 +33,7 @@
       "type": "BATCH_HEADER"
     },
     {
+      "index": 2,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -43,6 +46,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 3,
       "transactionType": 32,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -55,6 +59,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 4,
       "transactionType": 32,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -67,6 +72,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 5,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -79,6 +85,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 6,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -91,6 +98,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 7,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -103,6 +111,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 8,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -115,6 +124,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 9,
       "transactionType": 32,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -127,6 +137,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 10,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -139,6 +150,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 11,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -151,6 +163,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 12,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -163,6 +176,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 13,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -175,6 +189,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 14,
       "transactionType": 32,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -187,6 +202,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 15,
       "transactionType": 32,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -199,6 +215,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 16,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -211,6 +228,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 17,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -223,6 +241,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 18,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -235,6 +254,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 19,
       "transactionType": 22,
       "receiverRoutingNumber": 10100001,
       "receiverRoutingNumberCheckDigit": 9,
@@ -247,6 +267,7 @@
       "type": "ENTRY_DETAIL"
     },
     {
+      "index": 20,
       "serviceClassCode": 220,
       "entryAndAddendaCount": 18,
       "entryHash": 181800018,
@@ -260,6 +281,7 @@
       "type": "BATCH_CONTROL"
     },
     {
+      "index": 21,
       "batchCount": 1,
       "blockCount": 3,
       "entryAndAddendaCount": 18,

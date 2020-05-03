@@ -2,6 +2,7 @@ package edu.ucmo.nacha.record.finalform.entrydetailaddenda;
 
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import javax.inject.Inject;
  *
  * @author King Butcher
  */
-public class DefaultEntryDetailAddenda implements EntryDetailAddenda {
+public class DefaultEntryDetailAddenda
+    extends AbstractRecord
+    implements EntryDetailAddenda {
 
   // Properties
   private final int typeCode;
@@ -22,6 +25,7 @@ public class DefaultEntryDetailAddenda implements EntryDetailAddenda {
   /**
    * Constructor.
    *
+   * @param index The index.
    * @param typeCode The record and addenda type code.
    * @param paymentInfo Any payment related information.
    * @param addendaSequenceNumber The number which sequences the addenda record.
@@ -29,11 +33,13 @@ public class DefaultEntryDetailAddenda implements EntryDetailAddenda {
    */
   @Inject
   DefaultEntryDetailAddenda(
+      @Assisted("index") final int index,
       @Assisted("typeCode") final int typeCode,
       @Assisted("paymentInfo") @Nullable final String paymentInfo,
       @Assisted("addendaSequenceNumber") final int addendaSequenceNumber,
       @Assisted("entrySequenceNumber") final int entrySequenceNumber) {
 
+    super(index);
     this.typeCode = typeCode;
     this.paymentInfo = paymentInfo;
     this.addendaSequenceNumber = addendaSequenceNumber;

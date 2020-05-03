@@ -2,6 +2,7 @@ package edu.ucmo.nacha.record.finalform.entrydetail;
 
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import javax.inject.Inject;
  *
  * @author Grayson Kuhns
  */
-public class DefaultEntryDetail implements EntryDetail {
+public class DefaultEntryDetail
+    extends AbstractRecord
+    implements EntryDetail {
 
   // Properties
   private final int transactionType;
@@ -28,6 +31,7 @@ public class DefaultEntryDetail implements EntryDetail {
   /**
    * Constructor.
    *
+   * @param index The index.
    * @param transactionType The transaction type code.
    * @param receiverRoutingNumber The routing number of the receiving institution.
    * @param receiverRoutingNumberCheckDigit The check digit for the routing number of the receiving institution.
@@ -41,6 +45,7 @@ public class DefaultEntryDetail implements EntryDetail {
    */
   @Inject
   DefaultEntryDetail(
+      @Assisted("index") final int index,
       @Assisted("transactionType") final int transactionType,
       @Assisted("receiverRoutingNumber") final long receiverRoutingNumber,
       @Assisted("receiverRoutingNumberCheckDigit") final int receiverRoutingNumberCheckDigit,
@@ -52,6 +57,7 @@ public class DefaultEntryDetail implements EntryDetail {
       @Assisted("hasAddenda") final boolean hasAddenda,
       @Assisted("traceNumber") final long traceNumber) {
 
+    super(index);
     this.transactionType = transactionType;
     this.receiverRoutingNumber = receiverRoutingNumber;
     this.receiverRoutingNumberCheckDigit = receiverRoutingNumberCheckDigit;

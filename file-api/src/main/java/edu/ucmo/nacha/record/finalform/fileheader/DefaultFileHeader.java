@@ -1,7 +1,9 @@
 package edu.ucmo.nacha.record.finalform.fileheader;
 
 import com.google.inject.assistedinject.Assisted;
+import edu.ucmo.nacha.record.RecordField;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,7 +13,9 @@ import javax.inject.Inject;
  *
  * @author Grayson Kuhns
  */
-public class DefaultFileHeader implements FileHeader {
+public class DefaultFileHeader
+    extends AbstractRecord
+    implements FileHeader {
 
   // Properties
   private final int priorityCode;
@@ -30,6 +34,7 @@ public class DefaultFileHeader implements FileHeader {
   /**
    * Constructor.
    *
+   * @param index The index.
    * @param priorityCode The priority code.
    * @param immediateDestination The immediate destination.
    * @param immediateOrigin The immediate origin.
@@ -45,6 +50,7 @@ public class DefaultFileHeader implements FileHeader {
    */
   @Inject
   public DefaultFileHeader(
+      @Assisted("index") final int index,
       @Assisted("priorityCode") final int priorityCode,
       @Assisted("immediateDestination") final long immediateDestination,
       @Assisted("immediateOrigin") final long immediateOrigin,
@@ -58,6 +64,7 @@ public class DefaultFileHeader implements FileHeader {
       @Assisted("immediateOriginName") @Nullable final String immediateOriginName,
       @Assisted("referenceCode") @Nullable final String referenceCode) {
 
+    super(index);
     this.priorityCode = priorityCode;
     this.immediateDestination = immediateDestination;
     this.immediateOrigin = immediateOrigin;

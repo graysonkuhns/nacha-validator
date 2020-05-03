@@ -68,6 +68,7 @@ public class BatchControlParser implements SpecializedRecordParser<BatchControl>
 
     // Create the record
     return batchControlFactory.create(
+        record.getIndex(),
         serviceClassCode,
         entryAndAddendaCount,
         entryHash,

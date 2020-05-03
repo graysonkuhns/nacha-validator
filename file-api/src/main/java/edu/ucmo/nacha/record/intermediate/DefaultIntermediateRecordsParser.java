@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 
 /**
@@ -23,15 +24,21 @@ public class DefaultIntermediateRecordsParser implements IntermediateRecordsPars
 
   // Dependencies
   private final IntermediateRecordParser recordParser;
+  private final Provider<IndexTracker> indexTrackerProvider;
 
   /**
    * Constructor.
    *
    * @param recordParser The {@link IntermediateRecordParser}.
+   * @param indexTrackerProvider The {@link IndexTracker} {@link Provider}.
    */
   @Inject
-  DefaultIntermediateRecordsParser(final IntermediateRecordParser recordParser) {
+  DefaultIntermediateRecordsParser(
+      final IntermediateRecordParser recordParser,
+      final Provider<IndexTracker> indexTrackerProvider) {
+
     this.recordParser = recordParser;
+    this.indexTrackerProvider = indexTrackerProvider;
   }
 
   /**
@@ -42,9 +49,11 @@ public class DefaultIntermediateRecordsParser implements IntermediateRecordsPars
    */
   @Override
   public List<IntermediateRecord> parse(final List<String> rawRecords) {
+    final IndexTracker indexTracker = indexTrackerProvider.get();
+
     return rawRecords
         .stream()
-        .map(recordParser::parse)
+        .map(record -> recordParser.parse(record, indexTracker))
         .filter(Objects::nonNull)
         .collect(Collectors.toList());
   }

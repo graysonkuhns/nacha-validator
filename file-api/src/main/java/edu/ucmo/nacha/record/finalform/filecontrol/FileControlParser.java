@@ -65,6 +65,7 @@ public class FileControlParser implements SpecializedRecordParser<FileControl> {
 
     // Create the record
     return fileControlFactory.create(
+        record.getIndex(),
         batchCount,
         blockCount,
         entryAndAddendaCount,

@@ -3,6 +3,7 @@ package edu.ucmo.nacha.record.finalform.batchheader;
 
 import com.google.inject.assistedinject.Assisted;
 import edu.ucmo.nacha.record.RecordType;
+import edu.ucmo.nacha.record.finalform.AbstractRecord;
 import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -12,7 +13,9 @@ import javax.inject.Inject;
  *
  * @author King Butcher
  */
-public class DefaultBatchHeader implements BatchHeader {
+public class DefaultBatchHeader
+    extends AbstractRecord
+    implements BatchHeader {
 
   // Properties
   private final int serviceClassCode;
@@ -29,21 +32,25 @@ public class DefaultBatchHeader implements BatchHeader {
   private final long batchNumber;
 
   /**
-   * Constructor
+   * Constructor.
    *
+   * @param index The index.
    * @param serviceClassCode The service class code.
-   * @param entryAndAddendaCount The entry and addenda count in batch.
-   * @param entryHash The entry hash of first 8 digits of routing numbers.
-   * @param debitAmount The total debit dollar amount of the transaction.
-   * @param creditAmount The total credit dollar amount of the transaction.
-   * @param companyIdentification The company identification number.
-   * @param messageAuthentication The message authentication code.
-   * @param reserved Reserved for bank use.
-   * @param originatingDfiId The originating dfi id.
-   * @param batchNumber The sequential batch number.
+   * @param companyName The company name.
+   * @param discretionaryData The discretionary data.
+   * @param companyIdentification The company identification.
+   * @param standardEntry The standard entry.
+   * @param entryDescription The entry description.
+   * @param descriptiveDate The descriptive date.
+   * @param effectiveEntryDate The effective entry date.
+   * @param settlementDate The settlement date.
+   * @param originatorStatusCode The originator status code.
+   * @param originatingDfiId The originating dfi field.
+   * @param batchNumber The batch number.
    */
   @Inject
   DefaultBatchHeader(
+      @Assisted("index") final int index,
       @Assisted("serviceClassCode") final int serviceClassCode,
       @Assisted("companyName") final String companyName,
       @Assisted("discretionaryData") @Nullable final String discretionaryData,
@@ -57,6 +64,7 @@ public class DefaultBatchHeader implements BatchHeader {
       @Assisted("originatingDfiId") final String originatingDfiId,
       @Assisted("batchNumber") final long batchNumber) {
 
+    super(index);
     this.serviceClassCode = serviceClassCode;
     this.companyName = companyName;
     this.discretionaryData = discretionaryData;

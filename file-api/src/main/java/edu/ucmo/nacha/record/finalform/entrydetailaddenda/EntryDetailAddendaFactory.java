@@ -12,6 +12,7 @@ public interface EntryDetailAddendaFactory {
   /**
    * Creates an {@link EntryDetailAddenda}.
    *
+   * @param index The index.
    * @param typeCode The record and addenda type code.
    * @param paymentInfo Any payment related information.
    * @param addendaSequenceNumber The number which sequences the addenda record.
@@ -19,6 +20,7 @@ public interface EntryDetailAddendaFactory {
    * @return The {@link EntryDetailAddenda}.
    */
   EntryDetailAddenda create(
+      @Assisted("index") int index,
       @Assisted("typeCode") int typeCode,
       @Assisted("paymentInfo") String paymentInfo,
       @Assisted("addendaSequenceNumber") int addendaSequenceNumber,
