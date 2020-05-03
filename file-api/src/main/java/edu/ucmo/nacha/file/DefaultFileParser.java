@@ -1,6 +1,7 @@
 package edu.ucmo.nacha.file;
 
 import edu.ucmo.nacha.file.validation.AmountValidator;
+import edu.ucmo.nacha.file.validation.HashValidator;
 import edu.ucmo.nacha.file.validation.ValidationRecord;
 import edu.ucmo.nacha.record.finalform.Record;
 import edu.ucmo.nacha.record.finalform.RecordParser;
@@ -33,6 +34,7 @@ public class DefaultFileParser implements FileParser {
   private final PaddingDetector paddingDetector;
   private final RecordParser recordParser;
   private final AmountValidator amountValidator;
+  private final HashValidator hashValidator;
   private final Provider<ValidationRecord> validationRecordProvider;
 
   /**
@@ -43,6 +45,7 @@ public class DefaultFileParser implements FileParser {
    * @param paddingDetector The {@link PaddingDetector}.
    * @param recordParser The {@link RecordParser}.
    * @param amountValidator The {@link AmountValidator}.
+   * @param hashValidator The {@link HashValidator}.
    * @param validationRecordProvider The {@link ValidationRecord} {@link Provider}.
    */
   @Inject
@@ -52,6 +55,7 @@ public class DefaultFileParser implements FileParser {
       final PaddingDetector paddingDetector,
       final RecordParser recordParser,
       final AmountValidator amountValidator,
+      final HashValidator hashValidator,
       final Provider<ValidationRecord> validationRecordProvider) {
 
     this.fileParseResultsFactory = fileParseResultsFactory;
@@ -59,6 +63,7 @@ public class DefaultFileParser implements FileParser {
     this.paddingDetector = paddingDetector;
     this.recordParser = recordParser;
     this.amountValidator = amountValidator;
+    this.hashValidator = hashValidator;
     this.validationRecordProvider = validationRecordProvider;
   }
 
@@ -74,8 +79,9 @@ public class DefaultFileParser implements FileParser {
     // Create a fresh validation record
     final ValidationRecord validationRecord = validationRecordProvider.get();
 
-    // Validate the amount totals
+    // Perform validation
     amountValidator.validateAmounts(finalRecords, validationRecord);
+    hashValidator.validateHash(finalRecords, validationRecord);
 
     // Create the result
     return fileParseResultsFactory.create(finalRecords, validationRecord);
