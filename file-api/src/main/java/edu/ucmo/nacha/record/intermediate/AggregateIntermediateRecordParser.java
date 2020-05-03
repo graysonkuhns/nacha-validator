@@ -40,10 +40,11 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
    * Parses a {@link IntermediateRecord}.
    *
    * @param input The input to parse.
+   * @param indexTracker The {@link IndexTracker}.
    * @return The {@link IntermediateRecord} or null if the input is padding.
    */
   @Override
-  public IntermediateRecord parse(final String input) {
+  public IntermediateRecord parse(final String input, final IndexTracker indexTracker) {
     // Ensure the input is the appropriate length
     if (input.length() != RECORD_LENGTH) {
       throw new InvalidRecordException(
@@ -67,6 +68,6 @@ public class AggregateIntermediateRecordParser implements IntermediateRecordPars
     }
 
     // Parse the record
-    return parser.parse(input);
+    return parser.parse(input, indexTracker);
   }
 }

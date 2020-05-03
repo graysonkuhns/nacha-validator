@@ -12,6 +12,13 @@ import java.util.Map;
 public interface IntermediateRecord {
 
   /**
+   * Gets the record index.
+   *
+   * @return The record index.
+   */
+  int getIndex();
+
+  /**
    * Gets the type.
    *
    * @return The type.

@@ -12,21 +12,35 @@ import java.util.Map;
 public class DefaultIntermediateRecord implements IntermediateRecord {
 
   // Properties
+  private final int index;
   private final RecordType type;
   private final Map<RecordField, String> fields;
 
   /**
    * Constructor.
    *
+   * @param index The index.
    * @param type The {@link RecordType}.
    * @param fields The fields.
    */
   DefaultIntermediateRecord(
+      final int index,
       final RecordType type,
       final Map<RecordField, String> fields) {
 
+    this.index = index;
     this.type = type;
     this.fields = fields;
+  }
+
+  /**
+   * Gets the record index.
+   *
+   * @return The record index.
+   */
+  @Override
+  public int getIndex() {
+    return index;
   }
 
   /**

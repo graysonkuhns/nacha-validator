@@ -44,6 +44,7 @@ public class AggregateIntermediateRecordParserTest {
   public ExpectedException thrown = ExpectedException.none();
 
   // Fixtures
+  private IndexTracker indexTracker;
   private IntermediateRecord record;
   private SpecializedIntermediateRecordParser specializedParser;
   private AggregateIntermediateRecordParser aggregateParser;
@@ -55,7 +56,7 @@ public class AggregateIntermediateRecordParserTest {
     thrown.expectMessage(RECORD_TOO_SHORT_MSG);
 
     // Attempt to parse the record
-    aggregateParser.parse(RECORD_TOO_SHORT);
+    aggregateParser.parse(RECORD_TOO_SHORT, indexTracker);
   }
 
   @Test
@@ -65,7 +66,7 @@ public class AggregateIntermediateRecordParserTest {
     thrown.expectCause(Is.isA(InvalidRecordTypeException.class));
 
     // Attempt to parse the record
-    aggregateParser.parse(RECORD_INVALID_TYPE);
+    aggregateParser.parse(RECORD_INVALID_TYPE, indexTracker);
   }
 
   @Test
@@ -75,25 +76,31 @@ public class AggregateIntermediateRecordParserTest {
     thrown.expectMessage("Parsing records of type \"FILE_CONTROL\" is not currently supported");
 
     // Attempt to parse the record
-    aggregateParser.parse(RECORD_UNSUPPORTED_TYPE);
+    aggregateParser.parse(RECORD_UNSUPPORTED_TYPE, indexTracker);
   }
 
   @Test
   public void parse__ParsesTheRecord__WhenTheRecordIsValidAndSupported__Test() {
     assertThat(aggregateParser
-        .parse(RECORD_VALID))
+        .parse(RECORD_VALID, indexTracker))
         .isNotNull()
         .isEqualTo(record);
   }
 
   @Before
   public void setUp() {
+    // Index tracker mocking
+    indexTracker = mock(IndexTracker.class);
+    doReturn(1)
+        .when(indexTracker)
+        .getNext();
+
     // Specialized record parser mocking
     record = mock(IntermediateRecord.class);
     specializedParser = mock(SpecializedIntermediateRecordParser.class);
     doReturn(record)
         .when(specializedParser)
-        .parse(eq(RECORD_VALID));
+        .parse(eq(RECORD_VALID), eq(indexTracker));
     doReturn(RecordType.ENTRY_DETAIL)
         .when(specializedParser)
         .getSupportedRecordType();

@@ -1,7 +1,10 @@
 package edu.ucmo.nacha.record;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
+import edu.ucmo.nacha.record.intermediate.IndexTracker;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecord;
 import edu.ucmo.nacha.record.intermediate.SpecializedIntermediateRecordParser;
 import java.util.Map;
@@ -21,13 +24,19 @@ public class SpecializedIntermediateRecordParserTest {
       "6321010000191234567890111213100000000021300           MUSTARD MISTER M      DD0101000010000002";
 
   // Fixtures
+  private IndexTracker indexTracker;
   private SpecializedIntermediateRecordParser recordParser;
 
   @Test
   public void parse__ParsesTheRecord__WhenTheRecordIsValidAndSupported__Test() {
     // Parse the record
-    IntermediateRecord record = recordParser.parse(RECORD_VALID);
+    IntermediateRecord record = recordParser.parse(RECORD_VALID, indexTracker);
     assertThat(record).isNotNull();
+
+    // Validate the record index
+    assertThat(record
+        .getIndex())
+        .isEqualTo(1);
 
     // Validate the record type
     assertThat(record
@@ -102,6 +111,11 @@ public class SpecializedIntermediateRecordParserTest {
 
   @Before
   public void setUp() {
+    indexTracker = mock(IndexTracker.class);
+    doReturn(1)
+        .when(indexTracker)
+        .getNext();
+
     recordParser = new SpecializedIntermediateRecordParser(SUPPORTED_RECORD_TYPE);
   }
 }

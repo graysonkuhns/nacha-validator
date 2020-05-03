@@ -35,8 +35,10 @@ import edu.ucmo.nacha.record.finalform.batchheader.BatchHeaderFactory;
 import edu.ucmo.nacha.record.finalform.batchheader.BatchHeaderParser;
 import edu.ucmo.nacha.record.finalform.batchheader.DefaultBatchHeader;
 import edu.ucmo.nacha.record.intermediate.AggregateIntermediateRecordParser;
+import edu.ucmo.nacha.record.intermediate.DefaultIndexTracker;
 import edu.ucmo.nacha.record.intermediate.DefaultIntermediateRecordsParser;
 import edu.ucmo.nacha.record.intermediate.DefaultPaddingDetector;
+import edu.ucmo.nacha.record.intermediate.IndexTracker;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordParser;
 import edu.ucmo.nacha.record.intermediate.IntermediateRecordsParser;
 import edu.ucmo.nacha.record.intermediate.PaddingDetector;
@@ -56,6 +58,9 @@ public class RecordModule extends AbstractModule {
   @Override
   protected void configure() {
     // Intermediate records section --------------------------------------------------------------
+
+    // Index tracker
+    bind(IndexTracker.class).to(DefaultIndexTracker.class);
 
     // Padding detector
     bind(PaddingDetector.class).to(DefaultPaddingDetector.class);
