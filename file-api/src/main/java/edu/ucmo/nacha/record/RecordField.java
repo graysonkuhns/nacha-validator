@@ -1,6 +1,7 @@
 package edu.ucmo.nacha.record;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -111,6 +112,7 @@ public enum RecordField {
    *
    * @return The {@link RecordType}.
    */
+  @JsonIgnore
   public RecordType getRecordType() {
     return recordType;
   }
@@ -140,32 +142,6 @@ public enum RecordField {
    */
   public boolean isRequired() {
     return required;
-  }
-
-  /**
-   * Gets the name.
-   *
-   * @return The name.
-   */
-  public String getName() {
-    final String[] nameParts = toString().split("_");
-    final StringBuilder name = new StringBuilder();
-
-    for (int i = 1; i < nameParts.length; i++) {
-      char firstChar = nameParts[i].charAt(0);
-
-      if (i == 1) {
-        firstChar = Character.toLowerCase(firstChar);
-      } else {
-        firstChar = Character.toUpperCase(firstChar);
-      }
-
-      name.append(firstChar);
-      name.append(
-          nameParts[i].substring(1).toLowerCase());
-    }
-
-    return name.toString();
   }
 
   /**
