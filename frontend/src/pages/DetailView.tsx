@@ -50,6 +50,7 @@ export default function DetailView({ records, errors }: DetailViewProps) {
           </div>
           <div style={{
             display: 'flex',
+            fontSize: '1.2em',
             flexDirection: 'column',
           }}>
             {(errors || []).map((error, index) => (
