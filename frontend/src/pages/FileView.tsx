@@ -52,11 +52,12 @@ const FilePreview: React.FC<{content: string | null}> = ({content}) => {
 };
 
 interface FileViewProps {
+  onValidate: (records: any, errors: any) => void;
   onLoad: (content: string) => void;
   onClear: () => void;
 }
 
-export default function FileView({ onLoad, onClear }: FileViewProps) {
+export default function FileView({ onLoad, onClear, onValidate, }: FileViewProps) {
   const fileUploadRef = useRef<HTMLInputElement>();
   const [content, setContent] = useState<string | null>(null);
   const [validated, setValidated] = useState<boolean>(false);
@@ -84,25 +85,22 @@ export default function FileView({ onLoad, onClear }: FileViewProps) {
   const handleValidateClicked =() => {
     if (!content) return;
     const records = content
-      .split('\n')
+      .split(/[\r\n]+/)
       .filter(line => line.trim().length > 0);
 
     axios({
       method: 'post',
-      url: '/api/validate',
+      url: `http://${window.location.hostname}:8080/api/validate`,
       data: { records },
     }).then((response) => {
-      // TODO: Handle validation response
-      console.log(response);
+      const { records, validation: { recordFieldValidationErrors } } = response.data;
+      onValidate(records, recordFieldValidationErrors);
       setValidated(true);
-
     }).catch((err) => {
-      // TODO: Handle failed validation request
       alert(`Failed to send records to validation server: ${err}`);
-      console.error('Records:', records);
+      console.error(err);
     });
   };
-
 
   return (
     <div style={{ border: '1px solid grey', minWidth: '90%', }}>

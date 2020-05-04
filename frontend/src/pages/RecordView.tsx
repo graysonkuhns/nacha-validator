@@ -43,6 +43,7 @@ export type Record =
   BatchControl;
 
 export interface RecordError {
+  kind: string;
   field: string;
   reason: string;
   start: number;
@@ -68,7 +69,9 @@ const RecordView: React.FC<RecordViewProps> = ({ record, errors }) => {
   const getValue = (key: string) => {
     let color = undefined;
     const text = (record as any)[key];
-    if (errors.filter(e => e.field === key).length > 0)
+    const matches = errors
+      .filter(e => e.field === key && e.kind === record.kind);
+    if (matches.length > 0)
       color = 'red';
     return { text, color };
   }
