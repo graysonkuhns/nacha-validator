@@ -46,7 +46,7 @@ export default function DetailView({ records, errors }: DetailViewProps) {
             textAlign: 'center',
             fontFamily: 'serif',
           }}>
-            {errors && 'ERROR!'}
+            {errors && errors.length > 0 && 'ERROR!'}
           </div>
           <div style={{
             display: 'flex',

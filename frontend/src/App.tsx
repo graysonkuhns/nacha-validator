@@ -85,6 +85,9 @@ export default function App() {
       if (rawField === 'BC_CREDIT_AMOUNT') {
         kind = 'BATCH CONTROL RECORD';
         field = 'creditEntryAmount';
+      } else if (rawField === 'FC_ENTRY_HASH') {
+        kind = 'FILE CONTROL RECORD';
+        field = 'entryHash';
       }
 
       const newRecord = newRecords[rawRecords[error.recordIndex].newIndex];
