@@ -13,5 +13,5 @@ This project aims to adhere to [Semantic Versioning 2.0.0](http://semver.org/).
 ## Authors
 
 * [Grayson Kuhns](https://www.linkedin.com/in/graysonkuhns/)
-* Garrett Ewens
+* [Garrett Ewens](https://www.linkedin.com/in/garrett-ewens-402350172/)
 * King Butcher
